@@ -1,0 +1,42 @@
+{
+    "name": "wartron/yii2-account",
+    "description": "Flexible user registration and authentication module for Yii2",
+    "keywords": ["yii2", "yii2-account", "user management", "dektrium"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Will Wharton",
+            "email": "w@wartron.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "~2.0",
+        "yiisoft/yii2-swiftmailer": "~2.0",
+        "yiisoft/yii2-authclient": "~2.0",
+        "yiisoft/yii2-jui": "~2.0",
+        "yiisoft/yii2-bootstrap": "~2.0"
+    },
+    "require-dev": {
+        "yiisoft/yii2-codeception": "~2.0",
+        "codeception/specify": "*",
+        "codeception/verify": "*",
+        "codeception/aspect-mock": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "wartron\\yii2account\\": ""
+        }
+    },
+    "extra": {
+        "bootstrap": "wartron\\yii2account\\Bootstrap",
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
