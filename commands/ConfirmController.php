@@ -11,7 +11,7 @@
 
 namespace wartron\yii2account\commands;
 
-use dektrium\user\Finder;
+use wartron\yii2account\Finder;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
@@ -19,7 +19,7 @@ use yii\helpers\Console;
 /**
  * Confirms a user.
  *
- * @property \dektrium\user\Module $module
+ * @property \wartron\yii2account\Module $module
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
