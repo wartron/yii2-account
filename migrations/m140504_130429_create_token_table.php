@@ -20,7 +20,7 @@ class m140504_130429_create_token_table extends Migration
     public function up()
     {
         $this->createTable('{{%token}}', [
-            'account_id'    =>  Schema::TYPE_INTEGER . ' NOT NULL',
+            'account_id'    =>  'BINARY(16) NOT NULL',
             'code'          =>  Schema::TYPE_STRING . '(32) NOT NULL',
             'created_at'    =>  Schema::TYPE_INTEGER . ' NOT NULL',
             'type'          =>  Schema::TYPE_SMALLINT . ' NOT NULL',

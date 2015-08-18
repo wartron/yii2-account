@@ -20,8 +20,8 @@ class m150815_124311_create_account_organization_table extends Migration
     public function up()
     {
         $this->createTable('{{%account_organization}}', [
-            'account_id'        =>  Schema::TYPE_INTEGER . ' NOT NULL',
-            'organization_id'   =>  Schema::TYPE_INTEGER . ' NOT NULL',
+            'account_id'        =>  'BINARY(16) NOT NULL',
+            'organization_id'   =>  'BINARY(16) NOT NULL',
             'type'              =>  Schema::TYPE_SMALLINT . ' NOT NULL',
             'created_at'        =>  Schema::TYPE_INTEGER . ' NOT NULL',
         ], $this->tableOptions);

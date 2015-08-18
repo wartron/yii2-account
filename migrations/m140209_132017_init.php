@@ -20,7 +20,7 @@ class m140209_132017_init extends Migration
     public function up()
     {
         $this->createTable('{{%account}}', [
-            'id' => Schema::TYPE_PK,
+            'id'                    =>  'BINARY(16) NOT NULL PRIMARY KEY',
             'type'                  =>  Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
             'username'              =>  Schema::TYPE_STRING . '(255) NOT NULL',
             'email'                 =>  Schema::TYPE_STRING . '(255) NOT NULL',
@@ -41,7 +41,7 @@ class m140209_132017_init extends Migration
         $this->createIndex('account_unique_email', '{{%account}}', 'email', true);
 
         $this->createTable('{{%profile}}', [
-            'account_id'        =>  Schema::TYPE_INTEGER . ' PRIMARY KEY',
+            'account_id'        =>  'BINARY(16) NOT NULL PRIMARY KEY',
             'name'              =>  Schema::TYPE_STRING . '(255)',
             'public_email'      =>  Schema::TYPE_STRING . '(255)',
             'gravatar_email'    =>  Schema::TYPE_STRING . '(255)',

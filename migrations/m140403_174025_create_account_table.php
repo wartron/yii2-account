@@ -20,8 +20,8 @@ class m140403_174025_create_account_table extends Migration
     public function up()
     {
         $this->createTable('{{%account_network}}', [
-            'id'            =>  Schema::TYPE_PK,
-            'account_id'    =>  Schema::TYPE_INTEGER,
+            'id'            =>  'BINARY(16) NOT NULL PRIMARY KEY',
+            'account_id'    =>  'BINARY(16)',
             'provider'      =>  Schema::TYPE_STRING . ' NOT NULL',
             'client_id'     =>  Schema::TYPE_STRING . ' NOT NULL',
             'data'          =>  Schema::TYPE_TEXT,
