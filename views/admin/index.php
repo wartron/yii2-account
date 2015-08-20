@@ -16,6 +16,7 @@ use yii\helpers\Html;
 use yii\jui\DatePicker;
 use yii\web\View;
 use yii\widgets\Pjax;
+use wartron\yii2uuid\helpers\Uuid;
 
 /**
  * @var View $this
@@ -50,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'attribute' => 'username',
             'value' => function ($model) {
-                return Html::a($model->username, ['update', 'id' => $model->id]);
+                return Html::a($model->username, ['update', 'id' =>  Uuid::uuid2str($model->id)]);
             },
             'format' => 'raw',
         ],
@@ -88,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 if ($model->isConfirmed) {
                     return '<div class="text-center"><span class="text-success">' . Yii::t('account', 'Confirmed') . '</span></div>';
                 } else {
-                    return Html::a(Yii::t('account', 'Confirm'), ['confirm', 'id' => $model->id], [
+                    return Html::a(Yii::t('account', 'Confirm'), ['confirm', 'id' => Uuid::uuid2str($model->id) ], [
                         'class' => 'btn btn-xs btn-success btn-block',
                         'data-method' => 'post',
                         'data-confirm' => Yii::t('account', 'Are you sure you want to confirm this user?'),
@@ -102,13 +103,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'header' => Yii::t('account', 'Block status'),
             'value' => function ($model) {
                 if ($model->isBlocked) {
-                    return Html::a(Yii::t('account', 'Unblock'), ['block', 'id' => $model->id], [
+                    return Html::a(Yii::t('account', 'Unblock'), ['block', 'id' => Uuid::uuid2str($model->id) ], [
                         'class' => 'btn btn-xs btn-success btn-block',
                         'data-method' => 'post',
                         'data-confirm' => Yii::t('account', 'Are you sure you want to unblock this user?'),
                     ]);
                 } else {
-                    return Html::a(Yii::t('account', 'Block'), ['block', 'id' => $model->id], [
+                    return Html::a(Yii::t('account', 'Block'), ['block', 'id' => Uuid::uuid2str($model->id) ], [
                         'class' => 'btn btn-xs btn-danger btn-block',
                         'data-method' => 'post',
                         'data-confirm' => Yii::t('account', 'Are you sure you want to block this user?'),

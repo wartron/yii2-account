@@ -27,7 +27,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
-
+use wartron\yii2uuid\helpers\Uuid;
 /**
  * AdminController allows you to administrate users.
  *
@@ -291,6 +291,7 @@ class AdminController extends Controller
      */
     protected function findModel($id)
     {
+        $id = Uuid::str2uuid($id);
         $user = $this->finder->findAccountById($id);
         if ($user === null) {
             throw new NotFoundHttpException('The requested page does not exist');
