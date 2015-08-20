@@ -40,7 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
     'filterModel'  	=> $searchModel,
     'layout'  		=> "{items}\n{pager}",
     'columns' => [
-        'type',
+        [
+            'attribute' => 'type',
+            'filter' => [
+                1   =>  'User',
+                2   =>  'Organization',
+            ],
+        ],
         [
             'attribute' => 'username',
             'value' => function ($model) {
