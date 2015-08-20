@@ -23,7 +23,7 @@
         "yiisoft/yii2-authclient": "~2.0",
         "yiisoft/yii2-jui": "~2.0",
         "yiisoft/yii2-bootstrap": "~2.0",
-        "wartron/yii2-uuid": "@dev"
+        "wartron/yii2-uuid": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "~2.0",
