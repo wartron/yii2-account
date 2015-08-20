@@ -11,12 +11,19 @@
         }
     ],
     "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/wartron/yii2-uuid.git"
+        }
+    ],
     "require": {
         "yiisoft/yii2": "~2.0",
         "yiisoft/yii2-swiftmailer": "~2.0",
         "yiisoft/yii2-authclient": "~2.0",
         "yiisoft/yii2-jui": "~2.0",
-        "yiisoft/yii2-bootstrap": "~2.0"
+        "yiisoft/yii2-bootstrap": "~2.0",
+        "wartron/yii2-uuid": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "~2.0",

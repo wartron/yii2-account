@@ -210,6 +210,7 @@ class Account extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
+            \wartron\yii2uuid\behaviors\UUIDBehavior::className(),
             TimestampBehavior::className(),
         ];
     }
