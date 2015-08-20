@@ -115,7 +115,7 @@ class AdminController extends Controller
         if ($user->load(Yii::$app->request->post()) && $user->create()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('account', 'Account has been created'));
 
-            return $this->redirect(['update', 'id' => $user->id]);
+            return $this->redirect(['update', 'id' => Uuid::uuid2str($user->id)]);
         }
 
         return $this->render('create', [

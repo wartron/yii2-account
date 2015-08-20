@@ -16,6 +16,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use wartron\yii2uuid\helpers\Uuid;
 
 /**
  * ProfileController shows users profiles.
@@ -62,7 +63,7 @@ class ProfileController extends Controller
      */
     public function actionIndex()
     {
-        return $this->redirect(['show', 'id' => Yii::$app->user->getId()]);
+        return $this->redirect(['show', 'id' => Uuid::str2uuid(Yii::$app->user->getId()) ]);
     }
 
     /**
