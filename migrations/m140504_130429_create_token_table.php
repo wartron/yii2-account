@@ -22,8 +22,9 @@ class m140504_130429_create_token_table extends Migration
         $this->createTable('{{%token}}', [
             'account_id'    =>  Schema::TYPE_INTEGER . ' NOT NULL',
             'code'          =>  Schema::TYPE_STRING . '(32) NOT NULL',
-            'created_at'    =>  Schema::TYPE_INTEGER . ' NOT NULL',
             'type'          =>  Schema::TYPE_SMALLINT . ' NOT NULL',
+            'created_at'    =>  Schema::TYPE_INTEGER . ' NOT NULL',
+            // 'created_at'    =>  Schema::TYPE_INTEGER,
         ], $this->tableOptions);
 
         $this->createIndex('token_unique', '{{%token}}', ['account_id', 'code', 'type'], true);

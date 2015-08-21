@@ -30,15 +30,16 @@ class m140209_132017_init extends Migration
             'confirmed_at'          =>  Schema::TYPE_INTEGER,
             'unconfirmed_email'     =>  Schema::TYPE_STRING . '(255)',
 
-            'blocked_at'            =>  Schema::TYPE_INTEGER,
             'registration_ip'       =>  Schema::TYPE_STRING . '(45)',
             'flags'                 =>  Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
             'created_at'            =>  Schema::TYPE_INTEGER . ' NOT NULL',
             'updated_at'            =>  Schema::TYPE_INTEGER . ' NOT NULL',
+            'blocked_at'            =>  Schema::TYPE_INTEGER,
+            'deleted_at'            =>  Schema::TYPE_INTEGER,
         ], $this->tableOptions);
 
-        $this->createIndex('account_unique_username', '{{%account}}', 'username', true);
-        $this->createIndex('account_unique_email', '{{%account}}', 'email', true);
+        // $this->createIndex('account_unique_username', '{{%account}}', 'username', true);
+        // $this->createIndex('account_unique_email', '{{%account}}', 'email', true);
 
         $this->createTable('{{%profile}}', [
             'account_id'        =>  Schema::TYPE_INTEGER . ' PRIMARY KEY',

@@ -211,6 +211,15 @@ class Account extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::className(),
+            'softDeleteBehavior' => [
+                'class' => \yii2tech\ar\softdelete\SoftDeleteBehavior::className(),
+                'replaceRegularDelete' => true,
+                'softDeleteAttributeValues' => [
+                    'deleted_at' => function ($model) {
+                        return time();
+                    }
+                ],
+            ],
         ];
     }
 
@@ -503,5 +512,11 @@ class Account extends ActiveRecord implements IdentityInterface
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('Method "' . __CLASS__ . '::' . __METHOD__ . '" is not implemented.');
+    }
+
+    /** @inheritdoc */
+    public static function find()
+    {
+        return parent::find()->where('deleted_at is null');
     }
 }
