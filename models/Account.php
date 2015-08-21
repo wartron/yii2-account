@@ -210,8 +210,16 @@ class Account extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            \wartron\yii2uuid\behaviors\UUIDBehavior::className(),
             TimestampBehavior::className(),
+            \wartron\yii2uuid\behaviors\UUIDBehavior::className(),
+            'softDeleteBehavior' => [
+                'class' => \yii2tech\ar\softdelete\SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'deleted_at' => function ($model) {
+                        return time();
+                    }
+                ],
+            ],
         ];
     }
 
@@ -505,4 +513,10 @@ class Account extends ActiveRecord implements IdentityInterface
     {
         throw new NotSupportedException('Method "' . __CLASS__ . '::' . __METHOD__ . '" is not implemented.');
     }
+
+    public static function find()
+    {
+        return parent::find()->where('deleted_at is null');
+    }
+
 }
