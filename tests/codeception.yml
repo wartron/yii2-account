@@ -1,4 +1,4 @@
-namespace: dektrium\user\tests
+namespace: wartron\yii2account\tests
 actor: Tester
 paths:
     tests: codeception

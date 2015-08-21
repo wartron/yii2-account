@@ -13,7 +13,7 @@ $kernel->init([
     'debug'        => true,
     'includePaths' => [__DIR__.'/../../', VENDOR_DIR],
     'excludePaths' => [__DIR__],
-    'cacheDir'     => '/tmp/yii2-user/aop',
+    'cacheDir'     => '/tmp/yii2-account/aop',
 ]);
 $kernel->loadFile(VENDOR_DIR.'/yiisoft/yii2/Yii.php');
 
@@ -22,4 +22,4 @@ $_SERVER['SCRIPT_NAME']     = YII_TEST_ENTRY_URL;
 $_SERVER['SERVER_NAME']     = 'localhost';
 
 Yii::setAlias('@tests', dirname(__DIR__));
-Yii::setAlias('@dektrium/user', realpath(__DIR__.'..'));
+Yii::setAlias('@wartron/yii2account', realpath(__DIR__.'..'));

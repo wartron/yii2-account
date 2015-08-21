@@ -1,6 +1,6 @@
 <?php
 
-if (getenv('TEST_ENVIRONMENT') === 'travis') {
+if (true || getenv('TEST_ENVIRONMENT') === 'travis') {
     $vendor = __DIR__.'/../../vendor';
 } else {
     $vendor = __DIR__.'/../../../../../vendor';

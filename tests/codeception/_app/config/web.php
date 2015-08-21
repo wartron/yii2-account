@@ -4,18 +4,18 @@ $config = [
     'id'        => 'yii2-user-test',
     'basePath'  => dirname(__DIR__),
     'bootstrap' => [
-        'dektrium\user\Bootstrap',
+        'wartron\yii2account\Bootstrap',
     ],
     'extensions' => require(VENDOR_DIR.'/yiisoft/extensions.php'),
     'aliases' => [
-        '@dektrium/user' => realpath(__DIR__.'/../../../../'),
+        '@wartron/yii2account' => realpath(__DIR__.'/../../../../'),
         '@vendor'        => VENDOR_DIR,
         '@bower'         => VENDOR_DIR.'/bower',
         '@tests/codeception/config' => '@tests/codeception/_config',
     ],
     'modules' => [
-        'user' => [
-            'class' => 'dektrium\user\Module',
+        'account' => [
+            'class' => 'wartron\yii2account\Module',
             'admins' => ['user'],
         ],
     ],

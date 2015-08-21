@@ -2,9 +2,9 @@
 
 $db = [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=dektrium_test',
+    'dsn' => 'mysql:host=localhost;dbname=wartron_yii2account_test',
     'username' => 'root',
-    'password' => '',
+    'password' => 'root',
     'charset' => 'utf8',
 ];
 

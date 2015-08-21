@@ -1,12 +1,12 @@
 <?php
 
-namespace dektrium\user\tests;
+namespace wartron\yii2account\tests;
 
 use AspectMock\Test as test;
 use Codeception\Specify;
-use dektrium\user\Finder;
-use dektrium\user\models\LoginForm;
-use dektrium\user\models\User;
+use wartron\yii2account\Finder;
+use wartron\yii2account\models\LoginForm;
+use wartron\yii2account\models\Account;
 use Yii;
 use yii\base\Security;
 use yii\codeception\TestCase;
@@ -39,16 +39,16 @@ class LoginFormTest extends TestCase
             verify($form->getErrors('password'))->contains('Password cannot be blank.');
         });
 
-        $this->specify('user should exist in database', function () use ($form) {
-            $finder = test::double(Finder::className(), ['findUserByUsernameOrEmail' => null]);
+        $this->specify('Account should exist in database', function () use ($form) {
+            $finder = test::double(Finder::className(), ['findAccountByUsernameOrEmail' => null]);
             $form->setAttributes(['login' => 'tester', 'password' => 'qwerty']);
             verify($form->validate())->false();
             verify($form->getErrors('password'))->contains('Invalid login or password');
-            $finder->verifyInvoked('findUserByUsernameOrEmail');
+            $finder->verifyInvoked('findAccountByUsernameOrEmail');
         });
 
         $this->specify('password should be valid', function () use ($form) {
-            test::double(Finder::className(), ['findUserByUsernameOrEmail' => \Yii::createObject(User::className())]);
+            test::double(Finder::className(), ['findAccountByUsernameOrEmail' => \Yii::createObject(Account::className())]);
             test::double(Security::className(), ['validatePassword' => false]);
             $form->setAttributes(['password' => 'qwerty']);
             verify($form->validate(['password']))->false();
@@ -57,30 +57,30 @@ class LoginFormTest extends TestCase
             verify($form->validate(['password']))->true();
         });
 
-        $this->specify('user may not be confirmed when enableUnconfirmedLogin is true', function () use ($form) {
-            \Yii::$app->getModule('user')->enableUnconfirmedLogin = true;
-            $user = \Yii::createObject(User::className());
-            test::double($user, ['getIsConfirmed' => true]);
-            test::double(Finder::className(), ['findUserByUsernameOrEmail' => $user]);
+        $this->specify('Account may not be confirmed when enableUnconfirmedLogin is true', function () use ($form) {
+            \Yii::$app->getModule('account')->enableUnconfirmedLogin = true;
+            $account = \Yii::createObject(Account::className());
+            test::double($account, ['getIsConfirmed' => true]);
+            test::double(Finder::className(), ['findAccountByUsernameOrEmail' => $account]);
             verify($form->validate())->true();
-            test::double($user, ['getIsConfirmed' => false]);
+            test::double($account, ['getIsConfirmed' => false]);
             verify($form->validate())->true();
         });
 
-        $this->specify('user should be confirmed when enableUnconfirmedLogin is true', function () use ($form) {
-            \Yii::$app->getModule('user')->enableUnconfirmedLogin = false;
+        $this->specify('Account should be confirmed when enableUnconfirmedLogin is true', function () use ($form) {
+            \Yii::$app->getModule('account')->enableUnconfirmedLogin = false;
             verify($form->validate())->false();
             verify($form->getErrors('login'))->contains('You need to confirm your email address');
-            $user = \Yii::createObject(User::className());
-            test::double($user, ['getIsConfirmed' => true]);
-            test::double(Finder::className(), ['findUserByUsernameOrEmail' => $user]);
+            $account = \Yii::createObject(Account::className());
+            test::double($account, ['getIsConfirmed' => true]);
+            test::double(Finder::className(), ['findAccountByUsernameOrEmail' => $account]);
             verify($form->validate())->true();
         });
 
-        $this->specify('user should not be blocked', function () use ($form) {
-            $user = \Yii::createObject(User::className());
-            test::double($user, ['getIsBlocked' => true]);
-            test::double(Finder::className(), ['findUserByUsernameOrEmail' => $user]);
+        $this->specify('Account should not be blocked', function () use ($form) {
+            $account = \Yii::createObject(Account::className());
+            test::double($account, ['getIsBlocked' => true]);
+            test::double(Finder::className(), ['findAccountByUsernameOrEmail' => $account]);
             verify($form->validate())->false();
             verify($form->getErrors('login'))->contains('Your account has been blocked');
         });
@@ -91,8 +91,8 @@ class LoginFormTest extends TestCase
      */
     public function testLogin()
     {
-        $user = \Yii::createObject(User::className());
-        test::double(Finder::className(), ['findUserByUsernameOrEmail' => $user]);
+        $account = \Yii::createObject(Account::className());
+        test::double(Finder::className(), ['findAccountByUsernameOrEmail' => $account]);
 
         $form = Yii::createObject(LoginForm::className());
         $form->beforeValidate();

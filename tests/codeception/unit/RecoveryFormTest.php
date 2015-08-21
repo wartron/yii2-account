@@ -1,14 +1,14 @@
 <?php
 
-namespace dektrium\user\tests;
+namespace wartron\yii2account\tests;
 
 use AspectMock\Test as test;
 use Codeception\Specify;
-use dektrium\user\Finder;
-use dektrium\user\Mailer;
-use dektrium\user\models\RecoveryForm;
-use dektrium\user\models\Token;
-use dektrium\user\models\User;
+use wartron\yii2account\Finder;
+use wartron\yii2account\Mailer;
+use wartron\yii2account\models\RecoveryForm;
+use wartron\yii2account\models\Token;
+use wartron\yii2account\models\Account;
 use Yii;
 use yii\codeception\TestCase;
 use yii\db\ActiveQuery;
@@ -55,21 +55,21 @@ class RecoveryFormTest extends TestCase
         });
 
         $this->specify('form is not valid when user is not confirmed', function () use ($form) {
-            $user = \Yii::createObject(User::className());
-            test::double($user, ['getIsConfirmed' => false]);
-            test::double(Finder::className(), ['findUserByEmail' => $user]);
+            $account = \Yii::createObject(Account::className());
+            test::double($account, ['getIsConfirmed' => false]);
+            test::double(Finder::className(), ['findAccountByEmail' => $account]);
             $form->setAttributes(['email' => 'foobar@example.com']);
             verify($form->validate())->false();
             verify($form->getErrors('email'))->contains('You need to confirm your email address');
-            test::double($user, ['getIsConfirmed' => true]);
+            test::double($account, ['getIsConfirmed' => true]);
             verify($form->validate())->true();
         });
 
         $this->specify('sendRecoveryMessage return true if validation succeeded', function () use ($form, $mailer) {
             test::double($form, ['validate' => true]);
             $token = test::double(Token::className(), ['save' => true]);
-            $user = \Yii::createObject(['class' => User::className(), 'id' => 1]);
-            test::double(Finder::className(), ['findUserByEmail' => $user]);
+            $account = \Yii::createObject(['class' => Account::className(), 'id' => 1]);
+            test::double(Finder::className(), ['findAccountByEmail' => $account]);
             verify($form->sendRecoveryMessage())->true();
             $token->verifyInvoked('save');
             verify(\Yii::$app->session->getFlash('info'))
@@ -94,10 +94,10 @@ class RecoveryFormTest extends TestCase
             verify($form->getErrors('password'))->contains('Password cannot be blank.');
         });
 
-        $user  = Yii::createObject(User::className());
-        $umock = test::double($user, ['resetPassword' => true]);
+        $account  = Yii::createObject(Account::className());
+        $umock = test::double($account, ['resetPassword' => true]);
         $token = Yii::createObject(Token::className());
-        $tmock = test::double($token, ['delete' => true, 'getUser' => $user]);
+        $tmock = test::double($token, ['delete' => true, 'getUser' => $account]);
 
         $this->specify('return false if validation fails', function () use ($form) {
             $token = Yii::createObject(Token::className());
@@ -115,16 +115,16 @@ class RecoveryFormTest extends TestCase
         });
 
         $this->specify('method sets correct flash message', function () use ($form) {
-            $user  = Yii::createObject(User::className());
-            $umock = test::double($user, ['resetPassword' => true]);
+            $account  = Yii::createObject(Account::className());
+            $umock = test::double($account, ['resetPassword' => true]);
             $token = Yii::createObject(Token::className());
-            $tmock = test::double($token, ['delete' => true, 'getUser' => $user]);
+            $tmock = test::double($token, ['delete' => true, 'getUser' => $account]);
             verify($form->resetPassword($token))->true();
             verify(\Yii::$app->session->getFlash('success'))
                 ->equals('Your password has been changed successfully.');
             $umock->verifyInvoked('resetPassword');
             $tmock->verifyInvoked('delete');
-            test::double($user, ['resetPassword' => false]);
+            test::double($account, ['resetPassword' => false]);
             verify($form->resetPassword($token))->true();
             verify(\Yii::$app->session->getFlash('danger'))
                 ->equals('An error occurred and your password has not been changed. Please try again later.');
