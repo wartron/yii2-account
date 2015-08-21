@@ -12,7 +12,7 @@ use yii\codeception\BasePage;
 class RegistrationPage extends BasePage
 {
     /** @inheritdoc */
-    public $route = '/user/registration/register';
+    public $route = '/account/registration/register';
 
     /**
      * @param $username

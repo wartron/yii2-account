@@ -12,7 +12,7 @@ use yii\codeception\BasePage;
 class UpdatePage extends BasePage
 {
     /** @inheritdoc */
-    public $route = '/user/admin/update';
+    public $route = '/account/admin/update';
 
     /**
      * @param $username
@@ -21,9 +21,9 @@ class UpdatePage extends BasePage
      */
     public function update($username, $email, $password = null)
     {
-        $this->actor->fillField('#user-username', $username);
-        $this->actor->fillField('#user-email', $email);
-        $this->actor->fillField('#user-password', $password);
+        $this->actor->fillField('#account-username', $username);
+        $this->actor->fillField('#account-email', $email);
+        $this->actor->fillField('#account-password', $password);
         $this->actor->click('Update');
     }
 }

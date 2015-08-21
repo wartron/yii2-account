@@ -1,7 +1,7 @@
 <?php
 
 $config = [
-    'id'        => 'yii2-user-test',
+    'id'        => 'yii2-account-test',
     'basePath'  => dirname(__DIR__),
     'bootstrap' => [
         'wartron\yii2account\Bootstrap',
@@ -16,7 +16,7 @@ $config = [
     'modules' => [
         'account' => [
             'class' => 'wartron\yii2account\Module',
-            'admins' => ['user'],
+            'admins' => ['account'],
         ],
     ],
     'components' => [

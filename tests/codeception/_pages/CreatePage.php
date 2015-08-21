@@ -12,7 +12,7 @@ use yii\codeception\BasePage;
 class CreatePage extends BasePage
 {
     /** @inheritdoc */
-    public $route = '/user/admin/create';
+    public $route = '/account/admin/create';
 
     /**
      * @param $username
@@ -21,9 +21,9 @@ class CreatePage extends BasePage
      */
     public function create($username, $email, $password)
     {
-        $this->actor->fillField('#user-username', $username);
-        $this->actor->fillField('#user-email', $email);
-        $this->actor->fillField('#user-password', $password);
+        $this->actor->fillField('#account-username', $username);
+        $this->actor->fillField('#account-email', $email);
+        $this->actor->fillField('#account-password', $password);
         $this->actor->click('Save');
     }
 }

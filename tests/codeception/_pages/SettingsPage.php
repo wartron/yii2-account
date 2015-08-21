@@ -12,7 +12,7 @@ use yii\codeception\BasePage;
 class SettingsPage extends BasePage
 {
     /** @inheritdoc */
-    public $route = '/user/settings/account';
+    public $route = '/account/settings/account';
 
     /**
      * @param $email
