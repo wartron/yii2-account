@@ -5,15 +5,15 @@ use tests\codeception\_pages\CreatePage;
 use tests\codeception\_pages\LoginPage;
 
 $I = new FunctionalTester($scenario);
-$I->wantTo('ensure that accpimt creation works');
+$I->wantTo('ensure that account creation works');
 
 $loginPage = LoginPage::openBy($I);
-$accpimt = $I->getFixture('accpimt')->getModel('accpimt');
-$loginPage->login($accpimt->email, 'qwerty');
+$account = $I->getFixture('account')->getModel('account');
+$loginPage->login($account->email, 'qwerty');
 
 $page = CreatePage::openBy($I);
 
-$I->amGoingTo('try to create accpimt with empty fields');
+$I->amGoingTo('try to create account with empty fields');
 $page->create('', '', '');
 $I->expectTo('see validations errors');
 $I->see('Username cannot be blank.');

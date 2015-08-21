@@ -6,7 +6,7 @@ use Codeception\Specify;
 use wartron\yii2account\helpers\Password;
 use wartron\yii2account\models\RegistrationForm;
 use wartron\yii2account\models\Token;
-use wartron\yii2account\models\Accpimt;
+use wartron\yii2account\models\Account;
 use tests\codeception\_fixtures\AccountFixture;
 use yii\codeception\TestCase;
 

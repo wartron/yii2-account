@@ -109,7 +109,7 @@ class RegistrationController extends Controller
             throw new NotFoundHttpException();
         }
 
-        /** @var User $user */
+        /** @var Account $account */
         $account = Yii::createObject([
             'class'    => Account::className(),
             'scenario' => 'connect',
@@ -143,11 +143,11 @@ class RegistrationController extends Controller
     {
         $account = $this->finder->findAccountById($id);
 
-        if ($user === null || $this->module->enableConfirmation == false) {
+        if ($account === null || $this->module->enableConfirmation == false) {
             throw new NotFoundHttpException();
         }
 
-        $user->attemptConfirmation($code);
+        $account->attemptConfirmation($code);
 
         return $this->render('/message', [
             'title'  => Yii::t('account', 'Account confirmation'),

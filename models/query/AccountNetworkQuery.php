@@ -44,13 +44,13 @@ class AccountNetworkQuery extends ActiveQuery
     }
 
     /**
-     * Finds an account by user_id.
-     * @param  integer      $userId
+     * Finds an account by account_id.
+     * @param  integer      $account_id
      * @return AccountNetworkQuery
      */
-    public function byUser($userId)
+    public function byAccount($account_id)
     {
-        return $this->andWhere(['user_id' => $userId]);
+        return $this->andWhere(['account_id' => $account_id]);
     }
 
     /**

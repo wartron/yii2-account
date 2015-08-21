@@ -2,7 +2,7 @@
 
 $db = [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=wartron_yii2account_test',
+    'dsn' => 'mysql:host=127.0.0.1;dbname=wartron_yii2account_test',
     'username' => 'root',
     'password' => 'root',
     'charset' => 'utf8',

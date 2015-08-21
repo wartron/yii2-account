@@ -200,7 +200,7 @@ class AccountNetwork extends ActiveRecord
      */
     protected static function fetchAccount(AccountNetwork $accountNetwork)
     {
-        $account = static::getFinder()->findUserByEmail($accountNetwork->email);
+        $account = static::getFinder()->findAccountByEmail($accountNetwork->email);
 
         if (null !== $account) {
             return $account;

@@ -20,7 +20,7 @@ use yii\base\Model;
  * ResendForm gets user email address and validates if user has already confirmed his account. If so, it shows error
  * message, otherwise it generates and sends new confirmation token to user.
  *
- * @property User $user
+ * @property Account $account
  *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
@@ -29,8 +29,8 @@ class ResendForm extends Model
     /** @var string */
     public $email;
 
-    /** @var User */
-    private $_user;
+    /** @var Account */
+    private $_account;
 
     /** @var \wartron\yii2account\Module */
     protected $module;
@@ -55,15 +55,15 @@ class ResendForm extends Model
     }
 
     /**
-     * @return User
+     * @return Account
      */
-    public function getUser()
+    public function getAccount()
     {
-        if ($this->_user === null) {
-            $this->_user = $this->finder->findAccountByEmail($this->email);
+        if ($this->_account === null) {
+            $this->_account = $this->finder->findAccountByEmail($this->email);
         }
 
-        return $this->_user;
+        return $this->_account;
     }
 
     /** @inheritdoc */
@@ -76,7 +76,7 @@ class ResendForm extends Model
             'emailConfirmed' => [
                 'email',
                 function () {
-                    if ($this->user != null && $this->user->getIsConfirmed()) {
+                    if ($this->account != null && $this->account->getIsConfirmed()) {
                         $this->addError('email', Yii::t('account', 'This account has already been confirmed'));
                     }
                 }
@@ -99,7 +99,7 @@ class ResendForm extends Model
     }
 
     /**
-     * Creates new confirmation token and sends it to the user.
+     * Creates new confirmation token and sends it to the account.
      *
      * @return bool
      */
@@ -111,11 +111,11 @@ class ResendForm extends Model
         /** @var Token $token */
         $token = Yii::createObject([
             'class'   => Token::className(),
-            'account_id' => $this->user->id,
+            'account_id' => $this->account->id,
             'type'    => Token::TYPE_CONFIRMATION,
         ]);
         $token->save(false);
-        $this->mailer->sendConfirmationMessage($this->user, $token);
+        $this->mailer->sendConfirmationMessage($this->account, $token);
         Yii::$app->session->setFlash('info', Yii::t('account', 'A message has been sent to your email address. It contains a confirmation link that you must click to complete registration.'));
 
         return true;

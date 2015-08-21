@@ -48,7 +48,7 @@ class DeleteController extends Controller
     public function actionIndex($search)
     {
         if ($this->confirm(Yii::t('account', 'Are you sure? Deleted user can not be restored'))) {
-            $user = $this->finder->findUserByUsernameOrEmail($search);
+            $user = $this->finder->findAccountByUsernameOrEmail($search);
             if ($user === null) {
                 $this->stdout(Yii::t('account', 'User is not found') . "\n", Console::FG_RED);
             } else {

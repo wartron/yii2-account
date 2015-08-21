@@ -44,17 +44,17 @@ class SettingsForm extends Model
     /** @var Mailer */
     protected $mailer;
 
-    /** @var User */
-    private $_user;
+    /** @var Account */
+    private $_account;
 
-    /** @return User */
-    public function getUser()
+    /** @return Account */
+    public function getAccount()
     {
-        if ($this->_user == null) {
-            $this->_user = Yii::$app->user->identity;
+        if ($this->_account == null) {
+            $this->_account = Yii::$app->user->identity;
         }
 
-        return $this->_user;
+        return $this->_account;
     }
 
     /** @inheritdoc */
@@ -63,8 +63,8 @@ class SettingsForm extends Model
         $this->mailer = $mailer;
         $this->module = Yii::$app->getModule('account');
         $this->setAttributes([
-            'username' => $this->user->username,
-            'email'    => $this->user->unconfirmed_email ?: $this->user->email,
+            'username' => $this->account->username,
+            'email'    => $this->account->unconfirmed_email ?: $this->account->email,
         ], false);
         parent::__construct($config);
     }
@@ -81,12 +81,12 @@ class SettingsForm extends Model
             'emailTrim' => ['email', 'filter', 'filter' => 'trim'],
             'emailPattern' => ['email', 'email'],
             'emailUsernameUnique' => [['email', 'username'], 'unique', 'when' => function ($model, $attribute) {
-                return $this->user->$attribute != $model->$attribute;
+                return $this->account->$attribute != $model->$attribute;
             }, 'targetClass' => $this->module->modelMap['Account']],
             'newPasswordLength' => ['new_password', 'string', 'min' => 6],
             'currentPasswordRequired' => ['current_password', 'required'],
             'currentPasswordValidate' => ['current_password', function ($attr) {
-                if (!Password::validate($this->$attr, $this->user->password_hash)) {
+                if (!Password::validate($this->$attr, $this->account->password_hash)) {
                     $this->addError($attr, Yii::t('account', 'Current password is not valid'));
                 }
             }],
@@ -118,12 +118,12 @@ class SettingsForm extends Model
     public function save()
     {
         if ($this->validate()) {
-            $this->user->scenario = 'settings';
-            $this->user->username = $this->username;
-            $this->user->password = $this->new_password;
-            if ($this->email == $this->user->email && $this->user->unconfirmed_email != null) {
-                $this->user->unconfirmed_email = null;
-            } elseif ($this->email != $this->user->email) {
+            $this->account->scenario = 'settings';
+            $this->account->username = $this->username;
+            $this->account->password = $this->new_password;
+            if ($this->email == $this->account->email && $this->account->unconfirmed_email != null) {
+                $this->account->unconfirmed_email = null;
+            } elseif ($this->email != $this->account->email) {
                 switch ($this->module->emailChangeStrategy) {
                     case Module::STRATEGY_INSECURE:
                         $this->insecureEmailChange();
@@ -139,7 +139,7 @@ class SettingsForm extends Model
                 }
             }
 
-            return $this->user->save();
+            return $this->account->save();
         }
 
         return false;
@@ -150,7 +150,7 @@ class SettingsForm extends Model
      */
     protected function insecureEmailChange()
     {
-        $this->user->email = $this->email;
+        $this->account->email = $this->email;
         Yii::$app->session->setFlash('success', Yii::t('account', 'Your email address has been changed'));
     }
 
@@ -159,15 +159,15 @@ class SettingsForm extends Model
      */
     protected function defaultEmailChange()
     {
-        $this->user->unconfirmed_email = $this->email;
+        $this->account->unconfirmed_email = $this->email;
         /** @var Token $token */
         $token = Yii::createObject([
             'class'   => Token::className(),
-            'account_id' => $this->user->id,
+            'account_id' => $this->account->id,
             'type'    => Token::TYPE_CONFIRM_NEW_EMAIL,
         ]);
         $token->save(false);
-        $this->mailer->sendReconfirmationMessage($this->user, $token);
+        $this->mailer->sendReconfirmationMessage($this->account, $token);
         Yii::$app->session->setFlash('info', Yii::t('account', 'A confirmation message has been sent to your new email address'));
     }
 
@@ -182,16 +182,16 @@ class SettingsForm extends Model
         /** @var Token $token */
         $token = Yii::createObject([
             'class'   => Token::className(),
-            'account_id' => $this->user->id,
+            'account_id' => $this->account->id,
             'type'    => Token::TYPE_CONFIRM_OLD_EMAIL,
         ]);
         $token->save(false);
-        $this->mailer->sendReconfirmationMessage($this->user, $token);
+        $this->mailer->sendReconfirmationMessage($this->account, $token);
 
         // unset flags if they exist
-        $this->user->flags &= ~User::NEW_EMAIL_CONFIRMED;
-        $this->user->flags &= ~User::OLD_EMAIL_CONFIRMED;
-        $this->user->save(false);
+        $this->account->flags &= ~Account::NEW_EMAIL_CONFIRMED;
+        $this->account->flags &= ~Account::OLD_EMAIL_CONFIRMED;
+        $this->account->save(false);
 
         Yii::$app->session->setFlash('info', Yii::t('account', 'We have sent confirmation links to both old and new email addresses. You must click both links to complete your request'));
     }

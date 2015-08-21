@@ -97,7 +97,7 @@ class RecoveryFormTest extends TestCase
         $account  = Yii::createObject(Account::className());
         $umock = test::double($account, ['resetPassword' => true]);
         $token = Yii::createObject(Token::className());
-        $tmock = test::double($token, ['delete' => true, 'getUser' => $account]);
+        $tmock = test::double($token, ['delete' => true, 'getAccount' => $account]);
 
         $this->specify('return false if validation fails', function () use ($form) {
             $token = Yii::createObject(Token::className());
@@ -109,16 +109,16 @@ class RecoveryFormTest extends TestCase
 
         $this->specify('return false if token is invalid', function () use ($form) {
             $token = Yii::createObject(Token::className());
-            $tmock = test::double($token, ['getUser' => null]);
+            $tmock = test::double($token, ['getAccount' => null]);
             verify($form->resetPassword($token))->false();
-            $tmock->verifyInvoked('getUser');
+            $tmock->verifyInvoked('getAccount');
         });
 
         $this->specify('method sets correct flash message', function () use ($form) {
             $account  = Yii::createObject(Account::className());
             $umock = test::double($account, ['resetPassword' => true]);
             $token = Yii::createObject(Token::className());
-            $tmock = test::double($token, ['delete' => true, 'getUser' => $account]);
+            $tmock = test::double($token, ['delete' => true, 'getAccount' => $account]);
             verify($form->resetPassword($token))->true();
             verify(\Yii::$app->session->getFlash('success'))
                 ->equals('Your password has been changed successfully.');
