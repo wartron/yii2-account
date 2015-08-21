@@ -214,6 +214,7 @@ class Account extends ActiveRecord implements IdentityInterface
             \wartron\yii2uuid\behaviors\UUIDBehavior::className(),
             'softDeleteBehavior' => [
                 'class' => \yii2tech\ar\softdelete\SoftDeleteBehavior::className(),
+                'replaceRegularDelete' => true,
                 'softDeleteAttributeValues' => [
                     'deleted_at' => function ($model) {
                         return time();
