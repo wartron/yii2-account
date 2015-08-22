@@ -2,7 +2,7 @@
 
 namespace app\components;
 
-use dektrium\user\Mailer;
+use wartron\yii2account\Mailer;
 use tests\codeception\_support\MailHelper;
 
 class MailerMock extends Mailer

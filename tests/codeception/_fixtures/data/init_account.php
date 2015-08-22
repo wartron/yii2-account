@@ -3,8 +3,8 @@
 $time = time();
 
 return [
-    'user' => [
-        'username'      => 'user',
+    'account' => [
+        'username'      => 'account',
         'email'         => 'user@example.com',
         'password_hash' => '$2y$13$qY.ImaYBppt66qez6B31QO92jc5DYVRzo5NxM1ivItkW74WsSG6Ui',
         'auth_key'      => '39HU0m5lpjWtqstFVGFjj6lFb7UZDeRq',
@@ -38,7 +38,7 @@ return [
         'blocked_at'    => $time,
         'confirmed_at'  => $time,
     ],
-    'user_with_expired_recovery_token' => [
+    'account_with_expired_recovery_token' => [
         'username'      => 'andrew',
         'email'         => 'andrew@example.com',
         'password_hash' => '$2y$13$qY.ImaYBppt66qez6B31QO92jc5DYVRzo5NxM1ivItkW74WsSG6Ui',
@@ -47,7 +47,7 @@ return [
         'updated_at'    => $time - 21601,
         'confirmed_at'  => $time - 21601,
     ],
-    'user_with_recovery_token' => [
+    'account_with_recovery_token' => [
         'username'      => 'alex',
         'email'         => 'alex@example.com',
         'password_hash' => '$2y$13$qY.ImaYBppt66qez6B31QO92jc5DYVRzo5NxM1ivItkW74WsSG6Ui',

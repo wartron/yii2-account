@@ -1,9 +1,9 @@
 <?php
 
-namespace dektrium\user\tests;
+namespace wartron\yii2account\tests;
 
-use dektrium\user\models\ResendForm;
-use tests\codeception\_fixtures\UserFixture;
+use wartron\yii2account\models\ResendForm;
+use tests\codeception\_fixtures\AccountFixture;
 use yii\codeception\TestCase;
 
 class ResendFormTest extends TestCase
@@ -14,9 +14,9 @@ class ResendFormTest extends TestCase
     public function fixtures()
     {
         return [
-            'user' => [
-                'class' => UserFixture::className(),
-                'dataFile' => '@tests/codeception/_fixtures/data/init_user.php',
+            'account' => [
+                'class' => AccountFixture::className(),
+                'dataFile' => '@tests/codeception/_fixtures/data/init_account.php',
             ],
         ];
     }
@@ -24,16 +24,16 @@ class ResendFormTest extends TestCase
     public function testValidateEmail()
     {
         $form = \Yii::createObject(ResendForm::className());
-        $user = $this->getFixture('user')->getModel('user');
+        $account = $this->getFixture('account')->getModel('account');
         $form->setAttributes([
-            'email' => $user->email,
+            'email' => $account->email,
         ]);
         $this->assertFalse($form->validate());
 
         $form = \Yii::createObject(ResendForm::className());
-        $user = $this->getFixture('user')->getModel('unconfirmed');
+        $account = $this->getFixture('account')->getModel('unconfirmed');
         $form->setAttributes([
-            'email' => $user->email,
+            'email' => $account->email,
         ]);
         $this->assertTrue($form->validate());
     }

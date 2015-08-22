@@ -47,7 +47,7 @@ class ConfirmController extends Controller
      */
     public function actionIndex($search)
     {
-        $user = $this->finder->findUserByUsernameOrEmail($search);
+        $user = $this->finder->findAccountByUsernameOrEmail($search);
         if ($user === null) {
             $this->stdout(Yii::t('account', 'User is not found') . "\n", Console::FG_RED);
         } else {

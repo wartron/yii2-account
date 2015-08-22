@@ -12,7 +12,7 @@ use yii\codeception\BasePage;
 class RecoveryPage extends BasePage
 {
     /** @inheritdoc */
-    public $route = '/user/recovery/request';
+    public $route = '/account/recovery/request';
 
     /**
      * @param $email

@@ -12,7 +12,7 @@ use yii\codeception\BasePage;
 class LoginPage extends BasePage
 {
     /** @inheritdoc */
-    public $route = '/user/security/login';
+    public $route = '/account/security/login';
 
     /**
      * @param $login

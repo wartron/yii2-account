@@ -105,7 +105,7 @@ class Account extends ActiveRecord implements IdentityInterface
      */
     public function getIsUser()
     {
-        return $this->type == self::ACCOUNT_USERC;
+        return $this->type == self::ACCOUNT_USER;
     }
 
     /**
@@ -372,7 +372,7 @@ class Account extends ActiveRecord implements IdentityInterface
 
             if (empty($this->unconfirmed_email)) {
                 Yii::$app->session->setFlash('danger', Yii::t('account', 'An error occurred processing your request'));
-            } elseif ($this->finder->findUser(['email' => $this->unconfirmed_email])->exists() == false) {
+            } elseif ($this->finder->findAccount(['email' => $this->unconfirmed_email])->exists() == false) {
                 if ($this->module->emailChangeStrategy == Module::STRATEGY_SECURE) {
                     switch ($token->type) {
                         case Token::TYPE_CONFIRM_NEW_EMAIL:

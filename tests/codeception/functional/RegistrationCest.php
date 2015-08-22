@@ -1,10 +1,10 @@
 <?php
 
-namespace dektrium\user\tests;
+namespace wartron\yii2account\tests;
 
-use dektrium\user\models\Token;
-use dektrium\user\models\User;
-use dektrium\user\Module;
+use wartron\yii2account\models\Token;
+use wartron\yii2account\models\Account;
+use wartron\yii2account\Module;
 use tests\codeception\_pages\LoginPage;
 use tests\codeception\_pages\RegistrationPage;
 use yii\helpers\Html;
@@ -21,7 +21,7 @@ class RegistrationCest
 
     /**
      * Tests registration with email, username and password without any confirmation.
-     * @param \dektrium\user\tests\FunctionalTester $I
+     * @param \wartron\yii2account\tests\FunctionalTester $I
      */
     public function testRegistration(FunctionalTester $I)
     {
@@ -39,15 +39,15 @@ class RegistrationCest
         $I->see('Password cannot be blank');
 
         $I->amGoingTo('try to register with already used email and username');
-        $user = $I->getFixture('user')->getModel('user');
-        $page->register($user->email, $user->username, 'qwerty');
+        $account = $I->getFixture('account')->getModel('account');
+        $page->register($account->email, $account->username, 'qwerty');
         $I->see(Html::encode('This username has already been taken'));
         $I->see(Html::encode('This email address has already been taken'));
 
         $page->register('tester@example.com', 'tester', 'tester');
         $I->see('Your account has been created and a message with further instructions has been sent to your email');
-        $user = $I->grabRecord(User::className(), ['email' => 'tester@example.com']);
-        $I->assertTrue($user->isConfirmed);
+        $account = $I->grabRecord(Account::className(), ['email' => 'tester@example.com']);
+        $I->assertTrue($account->isConfirmed);
 
         $page = LoginPage::openBy($I);
         $page->login('tester', 'tester');
@@ -66,10 +66,10 @@ class RegistrationCest
         $page = RegistrationPage::openBy($I);
         $page->register('tester@example.com', 'tester', 'tester');
         $I->see('Your account has been created and a message with further instructions has been sent to your email');
-        $user  = $I->grabRecord(User::className(), ['email' => 'tester@example.com']);
-        $token = $I->grabRecord(Token::className(), ['user_id' => $user->id, 'type' => Token::TYPE_CONFIRMATION]);
+        $account  = $I->grabRecord(Account::className(), ['email' => 'tester@example.com']);
+        $token = $I->grabRecord(Token::className(), ['account_id' => $account->id, 'type' => Token::TYPE_CONFIRMATION]);
         $I->seeInEmail(Html::encode($token->url));
-        $I->assertFalse($user->isConfirmed);
+        $I->assertFalse($account->isConfirmed);
     }
 
     /**
@@ -85,8 +85,8 @@ class RegistrationCest
         $page = RegistrationPage::openBy($I);
         $page->register('tester@example.com', 'tester');
         $I->see('Your account has been created and a message with further instructions has been sent to your email');
-        $user = $I->grabRecord(User::className(), ['email' => 'tester@example.com']);
-        $I->assertEquals('tester', $user->username);
+        $account = $I->grabRecord(Account::className(), ['email' => 'tester@example.com']);
+        $I->assertEquals('tester', $account->username);
         $I->seeInEmail('We have generated a password for you');
     }
 }

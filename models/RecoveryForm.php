@@ -31,8 +31,8 @@ class RecoveryForm extends Model
     /** @var string */
     public $password;
 
-    /** @var User */
-    protected $user;
+    /** @var ACcount */
+    protected $account;
 
     /** @var \wartron\yii2account\Module */
     protected $module;
@@ -90,8 +90,8 @@ class RecoveryForm extends Model
             'emailUnconfirmed' => [
                 'email',
                 function ($attribute) {
-                    $this->user = $this->finder->findAccountByEmail($this->email);
-                    if ($this->user !== null && $this->module->enableConfirmation && !$this->user->getIsConfirmed()) {
+                    $this->account = $this->finder->findAccountByEmail($this->email);
+                    if ($this->account !== null && $this->module->enableConfirmation && !$this->account->getIsConfirmed()) {
                         $this->addError($attribute, Yii::t('account', 'You need to confirm your email address'));
                     }
                 }
@@ -112,11 +112,11 @@ class RecoveryForm extends Model
             /** @var Token $token */
             $token = Yii::createObject([
                 'class'   => Token::className(),
-                'account_id' => $this->user->id,
+                'account_id' => $this->account->id,
                 'type'    => Token::TYPE_RECOVERY,
             ]);
             $token->save(false);
-            $this->mailer->sendRecoveryMessage($this->user, $token);
+            $this->mailer->sendRecoveryMessage($this->account, $token);
             Yii::$app->session->setFlash('info', Yii::t('account', 'An email has been sent with instructions for resetting your password'));
 
             return true;
@@ -134,11 +134,11 @@ class RecoveryForm extends Model
      */
     public function resetPassword(Token $token)
     {
-        if (!$this->validate() || $token->user === null) {
+        if (!$this->validate() || $token->account === null) {
             return false;
         }
 
-        if ($token->user->resetPassword($this->password)) {
+        if ($token->account->resetPassword($this->password)) {
             Yii::$app->session->setFlash('success', Yii::t('account', 'Your password has been changed successfully.'));
             $token->delete();
         } else {

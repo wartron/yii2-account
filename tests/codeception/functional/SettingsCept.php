@@ -1,8 +1,8 @@
 <?php
 
-use dektrium\user\tests\FunctionalTester;
-use dektrium\user\models\Token;
-use dektrium\user\models\User;
+use wartron\yii2account\tests\FunctionalTester;
+use wartron\yii2account\models\Token;
+use wartron\yii2account\models\Account;
 use tests\codeception\_pages\LoginPage;
 use tests\codeception\_pages\SettingsPage;
 use yii\helpers\Html;
@@ -11,23 +11,23 @@ $I = new FunctionalTester($scenario);
 $I->wantTo('ensure that account settings page work');
 
 $page = LoginPage::openBy($I);
-$user = $I->getFixture('user')->getModel('user');
-$page->login($user->username, 'qwerty');
+$account = $I->getFixture('account')->getModel('account');
+$page->login($account->username, 'qwerty');
 
 $page = SettingsPage::openBy($I);
 
 $I->amGoingTo('check that current password is required and must be valid');
-$page->update($user->email, $user->username, 'wrong');
+$page->update($account->email, $account->username, 'wrong');
 $I->see('Current password is not valid');
 
 $I->amGoingTo('check that email is changing properly');
-$page->update('new_user@example.com', $user->username, 'qwerty');
-$I->seeRecord(User::className(), ['email' => $user->email, 'unconfirmed_email' => 'new_user@example.com']);
+$page->update('new_user@example.com', $account->username, 'qwerty');
+$I->seeRecord(Account::className(), ['email' => $account->email, 'unconfirmed_email' => 'new_user@example.com']);
 $I->see('A confirmation message has been sent to your new email address');
-$user  = $I->grabRecord(User::className(), ['id' => $user->id]);
-$token = $I->grabRecord(Token::className(), ['user_id' => $user->id, 'type' => Token::TYPE_CONFIRM_NEW_EMAIL]);
+$account  = $I->grabRecord(Account::className(), ['id' => $account->id]);
+$token = $I->grabRecord(Token::className(), ['account_id' => $account->id, 'type' => Token::TYPE_CONFIRM_NEW_EMAIL]);
 $I->seeInEmail(Html::encode($token->getUrl()));
-$I->seeInEmailRecipients($user->unconfirmed_email);
+$I->seeInEmailRecipients($account->unconfirmed_email);
 
 Yii::$app->user->logout();
 
@@ -37,10 +37,10 @@ $page->login('new_user@example.com', 'qwerty');
 $I->see('Invalid login or password');
 
 $I->amGoingTo('log in using new email address after clicking the confirmation link');
-$user->attemptEmailChange($token->code);
+$account->attemptEmailChange($token->code);
 $page->login('new_user@example.com', 'qwerty');
 $I->see('Logout');
-$I->seeRecord(User::className(), [
+$I->seeRecord(Account::className(), [
     'id' => 1,
     'email' => 'new_user@example.com',
     'unconfirmed_email' => null,
@@ -48,16 +48,16 @@ $I->seeRecord(User::className(), [
 
 $I->amGoingTo('reset email changing process');
 $page = SettingsPage::openBy($I);
-$page->update('user@example.com', $user->username, 'qwerty');
+$page->update('user@example.com', $account->username, 'qwerty');
 $I->see('A confirmation message has been sent to your new email address');
-$I->seeRecord(User::className(), [
+$I->seeRecord(Account::className(), [
     'id'    => 1,
     'email' => 'new_user@example.com',
     'unconfirmed_email' => 'user@example.com',
 ]);
-$page->update('new_user@example.com', $user->username, 'qwerty');
+$page->update('new_user@example.com', $account->username, 'qwerty');
 $I->see('Your account details have been updated');
-$I->seeRecord(User::className(), [
+$I->seeRecord(Account::className(), [
     'id'    => 1,
     'email' => 'new_user@example.com',
     'unconfirmed_email' => null,
@@ -65,7 +65,7 @@ $I->seeRecord(User::className(), [
 $I->amGoingTo('change username and password');
 $page->update('new_user@example.com', 'nickname', 'qwerty', '123654');
 $I->see('Your account details have been updated');
-$I->seeRecord(User::className(), [
+$I->seeRecord(Account::className(), [
     'username' => 'nickname',
     'email'    => 'new_user@example.com',
 ]);
