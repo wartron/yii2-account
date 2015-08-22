@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use dektrium\rbac\widgets\Assignments;
+use wartron\yii2account\rbac\widgets\Assignments;
 
 /**
  * @var yii\web\View 				$this
@@ -27,6 +27,6 @@ use dektrium\rbac\widgets\Assignments;
     'body' => Yii::t('account', 'You can assign multiple roles or permissions to user by using the form below'),
 ]) ?>
 
-<?= Assignments::widget(['userId' => $user->id]) ?>
+<?= Assignments::widget(['accountId' => $user->id]) ?>
 
 <?php $this->endContent() ?>
