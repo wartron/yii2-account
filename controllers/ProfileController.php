@@ -63,7 +63,7 @@ class ProfileController extends Controller
      */
     public function actionIndex()
     {
-        return $this->redirect(['show', 'id' => Uuid::str2uuid(Yii::$app->user->getId()) ]);
+        return $this->redirect(['show', 'id' => Uuid::uuid2str(Yii::$app->user->getId()) ]);
     }
 
     /**
@@ -76,6 +76,7 @@ class ProfileController extends Controller
      */
     public function actionShow($id)
     {
+        $id = Uuid::str2uuid($id);
         $profile = $this->finder->findProfileById($id);
 
         if ($profile === null) {
