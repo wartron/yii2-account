@@ -35,7 +35,6 @@ class m140209_132017_init extends Migration
             'flags'                 =>  Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
             'created_at'            =>  Schema::TYPE_INTEGER . ' NOT NULL',
             'updated_at'            =>  Schema::TYPE_INTEGER . ' NOT NULL',
-            'deleted_at'            =>  Schema::TYPE_INTEGER . ' NULL',
         ], $this->tableOptions);
 
         $this->createIndex('account_unique_username', '{{%account}}', 'username', true);

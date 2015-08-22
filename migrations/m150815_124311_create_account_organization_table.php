@@ -24,7 +24,6 @@ class m150815_124311_create_account_organization_table extends Migration
             'organization_id'   =>  'BINARY(16) NOT NULL',
             'type'              =>  Schema::TYPE_SMALLINT . ' NOT NULL',
             'created_at'        =>  Schema::TYPE_INTEGER . ' NOT NULL',
-            'deleted_at'        =>  Schema::TYPE_INTEGER . ' NULL',
         ], $this->tableOptions);
 
         $this->addForeignKey('fk_account_organization_user', '{{%account_organization}}', 'account_id', '{{%account}}', 'id', 'CASCADE', 'RESTRICT');

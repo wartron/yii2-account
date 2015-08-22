@@ -29,7 +29,6 @@ class m140403_174025_create_account_table extends Migration
             'email'         =>  Schema::TYPE_STRING,
             'username'      =>  Schema::TYPE_STRING,
             'created_at'    =>  Schema::TYPE_INTEGER . ' NOT NULL',
-            'deleted_at'    =>  Schema::TYPE_INTEGER . ' NULL',
         ], $this->tableOptions);
 
         $this->createIndex('account_network_unique', '{{%account_network}}', ['provider', 'client_id'], true);
