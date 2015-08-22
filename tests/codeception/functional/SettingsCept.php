@@ -41,9 +41,9 @@ $account->attemptEmailChange($token->code);
 $page->login('new_user@example.com', 'qwerty');
 $I->see('Logout');
 $I->seeRecord(Account::className(), [
-    'id' => 1,
-    'email' => 'new_user@example.com',
-    'unconfirmed_email' => null,
+    'id'                =>  hex2bin('11f24b97aade11e2aced000c29ae5e1b'),
+    'email'             =>  'new_user@example.com',
+    'unconfirmed_email' =>  null,
 ]);
 
 $I->amGoingTo('reset email changing process');
@@ -51,16 +51,16 @@ $page = SettingsPage::openBy($I);
 $page->update('user@example.com', $account->username, 'qwerty');
 $I->see('A confirmation message has been sent to your new email address');
 $I->seeRecord(Account::className(), [
-    'id'    => 1,
-    'email' => 'new_user@example.com',
-    'unconfirmed_email' => 'user@example.com',
+    'id'                =>  hex2bin('11f24b97aade11e2aced000c29ae5e1b'),
+    'email'             =>  'new_user@example.com',
+    'unconfirmed_email' =>  'user@example.com',
 ]);
 $page->update('new_user@example.com', $account->username, 'qwerty');
 $I->see('Your account details have been updated');
 $I->seeRecord(Account::className(), [
-    'id'    => 1,
-    'email' => 'new_user@example.com',
-    'unconfirmed_email' => null,
+    'id'                =>  hex2bin('11f24b97aade11e2aced000c29ae5e1b'),
+    'email'             =>  'new_user@example.com',
+    'unconfirmed_email' =>  null,
 ]);
 $I->amGoingTo('change username and password');
 $page->update('new_user@example.com', 'nickname', 'qwerty', '123654');
