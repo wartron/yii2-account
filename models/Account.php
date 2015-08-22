@@ -506,9 +506,4 @@ class Account extends ActiveRecord implements IdentityInterface
         throw new NotSupportedException('Method "' . __CLASS__ . '::' . __METHOD__ . '" is not implemented.');
     }
 
-    public static function find()
-    {
-        return parent::find()->where('deleted_at is null');
-    }
-
 }
