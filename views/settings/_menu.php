@@ -15,10 +15,9 @@ use yii\widgets\Menu;
 $user = Yii::$app->user->identity;
 $networksVisible = count(Yii::$app->authClientCollection->clients) > 0;
 
-$billingVisible = true;
-$organizationsVisible = true;
-
-$organizationsNav = true;
+$billingVisible = false;
+$organizationsVisible = false;
+$organizationsNav = false;
 
 $navItems = [
     [
