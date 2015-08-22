@@ -48,7 +48,7 @@ class RegistrationFormTest extends TestCase
         verify('email is required', $this->model->validate(['email']))->false();
         $this->model->email = 'not valid email';
         verify('email is not email', $this->model->validate(['email']))->false();
-        $this->model->email = 'account@example.com';
+        $this->model->email = 'user@example.com';
         verify('email is already using', $this->model->validate(['email']))->false();
         $this->model->email = 'perfect@example.com';
         verify('email is ok', $this->model->validate(['email']))->true();
