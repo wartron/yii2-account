@@ -26,12 +26,12 @@ use yii\bootstrap\Nav;
         [
             'label'   => Yii::t('account', 'Roles'),
             'url'     => ['/rbac/role/index'],
-            'visible' => isset(Yii::$app->extensions['dektrium/yii2-rbac']),
+            'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
         ],
         [
             'label' => Yii::t('account', 'Permissions'),
             'url'   => ['/rbac/permission/index'],
-            'visible' => isset(Yii::$app->extensions['dektrium/yii2-rbac']),
+            'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
         ],
         [
             'label' => Yii::t('account', 'Create'),
@@ -43,12 +43,12 @@ use yii\bootstrap\Nav;
                 [
                     'label' => Yii::t('account', 'New role'),
                     'url'   => ['/rbac/role/create'],
-                    'visible' => isset(Yii::$app->extensions['dektrium/yii2-rbac']),
+                    'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
                 ],
                 [
                     'label' => Yii::t('account', 'New permission'),
                     'url'   => ['/rbac/permission/create'],
-                    'visible' => isset(Yii::$app->extensions['dektrium/yii2-rbac']),
+                    'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
                 ],
             ],
         ],

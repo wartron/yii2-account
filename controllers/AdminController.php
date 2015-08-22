@@ -199,7 +199,7 @@ class AdminController extends Controller
     }
 
     /**
-     * If "dektrium/yii2-rbac" extension is installed, this page displays form
+     * If "wartron/yii2-account-rbac-uuid" extension is installed, this page displays form
      * where user can assign multiple auth items to user.
      *
      * @param int $id
@@ -209,7 +209,7 @@ class AdminController extends Controller
      */
     public function actionAssignments($id)
     {
-        if (!isset(Yii::$app->extensions['dektrium/yii2-rbac'])) {
+        if (!isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid'])) {
             throw new NotFoundHttpException();
         }
         Url::remember('', 'actions-redirect');
