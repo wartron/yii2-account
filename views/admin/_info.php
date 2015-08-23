@@ -13,9 +13,11 @@
  * @var yii\web\View
  * @var wartron\yii2account\models\User
  */
-?>
 
-<?php $this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]) ?>
+
+$this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
+
+?>
 
 <table class="table">
     <tr>
@@ -46,4 +48,8 @@
     </tr>
 </table>
 
-<?php $this->endContent() ?>
+<?php
+
+$this->endContent();
+
+?>

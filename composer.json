@@ -15,6 +15,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/wartron/yii2-uuid.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/wartron/yii2-widgets-urlactive.git"
         }
     ],
     "require": {
@@ -24,6 +28,7 @@
         "yiisoft/yii2-jui": "~2.0",
         "yiisoft/yii2-bootstrap": "~2.0",
         "wartron/yii2-uuid": "dev-master",
+        "wartron/yii2-widgets-urlactive": "dev-master",
         "yii2tech/ar-softdelete": "*"
     },
     "require-dev": {

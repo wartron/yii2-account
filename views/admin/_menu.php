@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use yii\bootstrap\Nav;
+use wartron\yii2widgets\urlactive\Nav;
 
 echo Nav::widget([
     'options' => [
