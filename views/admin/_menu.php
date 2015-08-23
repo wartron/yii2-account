@@ -11,9 +11,7 @@
 
 use yii\bootstrap\Nav;
 
-?>
-
-<?= Nav::widget([
+echo Nav::widget([
     'options' => [
         'class' => 'nav-tabs',
         'style' => 'margin-bottom: 15px',
@@ -26,12 +24,12 @@ use yii\bootstrap\Nav;
         [
             'label'   => Yii::t('account', 'Roles'),
             'url'     => ['/rbac/role/index'],
-            'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
+            'visible' => $module->hasRbac() && $module->can('admin-rbac'),
         ],
         [
             'label' => Yii::t('account', 'Permissions'),
             'url'   => ['/rbac/permission/index'],
-            'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
+            'visible' => $module->hasRbac() && $module->can('admin-rbac'),
         ],
         [
             'label' => Yii::t('account', 'Create'),
@@ -43,14 +41,15 @@ use yii\bootstrap\Nav;
                 [
                     'label' => Yii::t('account', 'New role'),
                     'url'   => ['/rbac/role/create'],
-                    'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
+                    'visible' => $module->hasRbac() && $module->can('admin-rbac'),
                 ],
                 [
                     'label' => Yii::t('account', 'New permission'),
                     'url'   => ['/rbac/permission/create'],
-                    'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
+                    'visible' => $module->hasRbac() && $module->can('admin-rbac'),
                 ],
             ],
         ],
     ],
-]) ?>
+]);
+
