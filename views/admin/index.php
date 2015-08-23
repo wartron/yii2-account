@@ -33,7 +33,9 @@ echo $this->render('/_alert', [
     'module' => $module,
 ]);
 
-echo $this->render('/admin/_menu');
+echo $this->render('_menu', [
+    'module' => $module,
+]);
 
 Pjax::begin();
 

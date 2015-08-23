@@ -22,13 +22,17 @@ $this->title = Yii::t('account', 'Create a user account');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('account', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
+$module = Yii::$app->getModule('account');
+
+echo $this->render('/_alert', [
+    'module' => $module,
+]);
+
+echo $this->render('_menu', [
+    'module' => $module,
+]);
+
 ?>
-
-<?= $this->render('/_alert', [
-    'module' => Yii::$app->getModule('account'),
-]) ?>
-
-<?= $this->render('_menu') ?>
 
 <div class="row">
     <div class="col-md-3">
