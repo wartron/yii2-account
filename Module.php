@@ -33,6 +33,9 @@ class Module extends BaseModule
     /** Email is changed after account clicks both confirmation links sent to his old and new email addresses. */
     const STRATEGY_SECURE = 2;
 
+    /** @var bool Whether to use rbac for account management. */
+    public $useRbacPermissions = false;
+
     /** @var bool Whether to show flash messages. */
     public $enableFlashMessages = true;
 
@@ -92,4 +95,22 @@ class Module extends BaseModule
         'recover/<id:\d+>/<code:[A-Za-z0-9_-]+>' => 'recovery/reset',
         'settings/<action:\w+>'                  => 'settings/<action>'
     ];
+
+    public function can($permission)
+    {
+        if( !$this->useRbacPermissions )
+            return true;
+
+        return \Yii::$app->user->can($permission);
+    }
+
+    public function hasRbac()
+    {
+        return isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']);
+    }
+
+    public function hasBilling()
+    {
+        return isset(Yii::$app->extensions['wartron/yii2-account-billiing']);
+    }
 }
