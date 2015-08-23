@@ -54,7 +54,7 @@ echo GridView::widget([
         [
             'attribute' => 'username',
             'value' => function ($model) {
-                return Html::a($model->username, ['update', 'id' =>  Uuid::uuid2str($model->id)]);
+                return Html::a($model->username, ['info', 'id' =>  Uuid::uuid2str($model->id)]);
             },
             'format' => 'raw',
         ],
