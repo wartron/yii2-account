@@ -104,22 +104,22 @@ class AdminController extends Controller
      */
     public function actionCreate()
     {
-        /** @var Account $user */
-        $user = Yii::createObject([
+        /** @var Account $account */
+        $account = Yii::createObject([
             'class'    => Account::className(),
             'scenario' => 'create',
         ]);
 
-        $this->performAjaxValidation($user);
+        $this->performAjaxValidation($account);
 
-        if ($user->load(Yii::$app->request->post()) && $user->create()) {
+        if ($account->load(Yii::$app->request->post()) && $account->create()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('account', 'Account has been created'));
 
-            return $this->redirect(['update', 'id' => Uuid::uuid2str($user->id)]);
+            return $this->redirect(['update', 'id' => Uuid::uuid2str($account->id)]);
         }
 
         return $this->render('create', [
-            'user' => $user,
+            'user' => $account,
         ]);
     }
 
@@ -133,19 +133,19 @@ class AdminController extends Controller
     public function actionUpdate($id)
     {
         Url::remember('', 'actions-redirect');
-        $user = $this->findModel($id);
-        $user->scenario = 'update';
+        $account = $this->findModel($id);
+        $account->scenario = 'update';
 
-        $this->performAjaxValidation($user);
+        $this->performAjaxValidation($account);
 
-        if ($user->load(Yii::$app->request->post()) && $user->save()) {
+        if ($account->load(Yii::$app->request->post()) && $account->save()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('account', 'Account details have been updated'));
 
             return $this->refresh();
         }
 
         return $this->render('_account', [
-            'user' => $user,
+            'user' => $account,
         ]);
     }
 
@@ -159,12 +159,12 @@ class AdminController extends Controller
     public function actionUpdateProfile($id)
     {
         Url::remember('', 'actions-redirect');
-        $user    = $this->findModel($id);
-        $profile = $user->profile;
+        $account    = $this->findModel($id);
+        $profile = $account->profile;
 
         if ($profile == null) {
             $profile = Yii::createObject(Profile::className());
-            $profile->link('user', $user);
+            $profile->link('account', $account);
         }
 
         $this->performAjaxValidation($profile);
@@ -176,7 +176,7 @@ class AdminController extends Controller
         }
 
         return $this->render('_profile', [
-            'user'    => $user,
+            'user'    => $account,
             'profile' => $profile,
         ]);
     }
@@ -191,10 +191,10 @@ class AdminController extends Controller
     public function actionInfo($id)
     {
         Url::remember('', 'actions-redirect');
-        $user = $this->findModel($id);
+        $account = $this->findModel($id);
 
         return $this->render('_info', [
-            'user' => $user,
+            'user' => $account,
         ]);
     }
 
@@ -213,10 +213,10 @@ class AdminController extends Controller
             throw new NotFoundHttpException();
         }
         Url::remember('', 'actions-redirect');
-        $user = $this->findModel($id);
+        $account = $this->findModel($id);
 
         return $this->render('_assignments', [
-            'user' => $user,
+            'user' => $account,
         ]);
     }
 
@@ -267,12 +267,12 @@ class AdminController extends Controller
         if ($id == Yii::$app->user->getId()) {
             Yii::$app->getSession()->setFlash('danger', Yii::t('account', 'You can not block your own account'));
         } else {
-            $user = $this->findModel($id);
-            if ($user->getIsBlocked()) {
-                $user->unblock();
+            $account = $this->findModel($id);
+            if ($account->getIsBlocked()) {
+                $account->unblock();
                 Yii::$app->getSession()->setFlash('success', Yii::t('account', 'User has been unblocked'));
             } else {
-                $user->block();
+                $account->block();
                 Yii::$app->getSession()->setFlash('success', Yii::t('account', 'User has been blocked'));
             }
         }
@@ -292,12 +292,12 @@ class AdminController extends Controller
     protected function findModel($id)
     {
         $id = Uuid::str2uuid($id);
-        $user = $this->finder->findAccountById($id);
-        if ($user === null) {
+        $account = $this->finder->findAccountById($id);
+        if ($account === null) {
             throw new NotFoundHttpException('The requested page does not exist');
         }
 
-        return $user;
+        return $account;
     }
 
     /**

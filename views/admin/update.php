@@ -12,6 +12,7 @@
 use wartron\yii2account\models\Account;
 use yii\bootstrap\Nav;
 use yii\web\View;
+use wartron\yii2uuid\helpers\Uuid;
 
 /**
  * @var View 	$this
