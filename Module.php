@@ -106,11 +106,11 @@ class Module extends BaseModule
 
     public function hasRbac()
     {
-        return isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']);
+        return isset(\Yii::$app->extensions['wartron/yii2-account-rbac-uuid']);
     }
 
     public function hasBilling()
     {
-        return isset(Yii::$app->extensions['wartron/yii2-account-billiing']);
+        return isset(\Yii::$app->extensions['wartron/yii2-account-billiing']);
     }
 }

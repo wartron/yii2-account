@@ -129,6 +129,8 @@ class Account extends ActiveRecord implements IdentityInterface
      */
     public function getIsAdmin()
     {
+        if($this->module->useRbacPermissions)
+            return \Yii::$app->user->can('backend');
         return in_array($this->username, $this->module->admins);
     }
 
