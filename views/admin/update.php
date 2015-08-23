@@ -40,18 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'nav-pills nav-stacked',
                     ],
                     'items' => [
-                        ['label' => Yii::t('account', 'Account details'), 'url' => ['/account/admin/update', 'id' => $user->id]],
-                        ['label' => Yii::t('account', 'Profile details'), 'url' => ['/account/admin/update-profile', 'id' => $user->id]],
-                        ['label' => Yii::t('account', 'Information'), 'url' => ['/account/admin/info', 'id' => $user->id]],
+                        ['label' => Yii::t('account', 'Account details'), 'url' => ['/account/admin/update', 'id' => Uuid::uuid2str($user->id)]],
+                        ['label' => Yii::t('account', 'Profile details'), 'url' => ['/account/admin/update-profile', 'id' => Uuid::uuid2str($user->id)]],
+                        ['label' => Yii::t('account', 'Information'), 'url' => ['/account/admin/info', 'id' => Uuid::uuid2str($user->id)]],
                         [
                             'label' => Yii::t('account', 'Assignments'),
-                            'url' => ['/account/admin/assignments', 'id' => $user->id],
+                            'url' => ['/account/admin/assignments', 'id' => Uuid::uuid2str($user->id)],
                             'visible' => isset(Yii::$app->extensions['wartron/yii2-account-rbac-uuid']),
                         ],
                         '<hr>',
                         [
                             'label' => Yii::t('account', 'Confirm'),
-                            'url'   => ['/account/admin/confirm', 'id' => $user->id],
+                            'url'   => ['/account/admin/confirm', 'id' => Uuid::uuid2str($user->id)],
                             'visible' => !$user->isConfirmed,
                             'linkOptions' => [
                                 'class' => 'text-success',
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'label' => Yii::t('account', 'Block'),
-                            'url'   => ['/account/admin/block', 'id' => $user->id],
+                            'url'   => ['/account/admin/block', 'id' => Uuid::uuid2str($user->id)],
                             'visible' => !$user->isBlocked,
                             'linkOptions' => [
                                 'class' => 'text-danger',
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'label' => Yii::t('account', 'Unblock'),
-                            'url'   => ['/account/admin/block', 'id' => $user->id],
+                            'url'   => ['/account/admin/block', 'id' => Uuid::uuid2str($user->id)],
                             'visible' => $user->isBlocked,
                             'linkOptions' => [
                                 'class' => 'text-success',
@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'label' => Yii::t('account', 'Delete'),
-                            'url'   => ['/account/admin/delete', 'id' => $user->id],
+                            'url'   => ['/account/admin/delete', 'id' => Uuid::uuid2str($user->id)],
                             'linkOptions' => [
                                 'class' => 'text-danger',
                                 'data-method' => 'post',
