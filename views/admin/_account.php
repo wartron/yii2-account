@@ -17,11 +17,9 @@ use yii\helpers\Html;
  * @var wartron\yii2account\models\User $user
  */
 
-?>
+$this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
 
-<?php $this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]) ?>
-
-<?php $form = ActiveForm::begin([
+$form = ActiveForm::begin([
     'layout' => 'horizontal',
     'enableAjaxValidation'   => true,
     'enableClientValidation' => false,
@@ -30,16 +28,19 @@ use yii\helpers\Html;
             'wrapper' => 'col-sm-9',
         ],
     ],
-]); ?>
+]);
 
-<?= $this->render('_user', ['form' => $form, 'user' => $user]) ?>
+echo $this->render('_user', ['form' => $form, 'user' => $user]);
 
+?>
 <div class="form-group">
     <div class="col-lg-offset-3 col-lg-9">
-        <?= Html::submitButton(Yii::t('account', 'Update'), ['class' => 'btn btn-block btn-success']) ?>
+        <?= Html::submitButton(Yii::t('account', 'Update'), ['class' => 'btn btn-block btn-success']); ?>
     </div>
 </div>
 
-<?php ActiveForm::end(); ?>
+<?php
 
-<?php $this->endContent() ?>
+ActiveForm::end();
+
+$this->endContent();

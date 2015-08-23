@@ -13,8 +13,10 @@
  * @var yii\widgets\ActiveForm 		$form
  * @var wartron\yii2account\models\User 	$user
  */
-?>
 
-<?= $form->field($user, 'email')->textInput(['maxlength' => 255]) ?>
-<?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
-<?= $form->field($user, 'password')->passwordInput() ?>
+
+
+
+echo $form->field($user, 'email')->textInput(['maxlength' => 255]);
+echo $form->field($user, 'username')->textInput(['maxlength' => 255]);
+echo $form->field($user, 'password')->passwordInput();

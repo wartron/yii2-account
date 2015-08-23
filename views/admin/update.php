@@ -22,7 +22,7 @@ use wartron\yii2uuid\helpers\Uuid;
 
 $this->title = Yii::t('account', 'Update account');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('account', 'Accounts'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $user->username , 'url' => ['info']];
+$this->params['breadcrumbs'][] = ['label' => $user->username , 'url' => ['/account/admin/info', 'id' => Uuid::uuid2str($user->id)] ];
 $this->params['breadcrumbs'][] = $this->title;
 
 $module = Yii::$app->getModule('account');

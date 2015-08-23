@@ -16,17 +16,17 @@ use wartron\yii2account\rbac\widgets\Assignments;
  * @var wartron\yii2account\models\User 	$user
  */
 
-?>
+$this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
 
-<?php $this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]) ?>
 
-<?= yii\bootstrap\Alert::widget([
+echo yii\bootstrap\Alert::widget([
     'options' => [
         'class' => 'alert-info',
     ],
     'body' => Yii::t('account', 'You can assign multiple roles or permissions to user by using the form below'),
-]) ?>
+]);
 
-<?= Assignments::widget(['accountId' => $user->id]) ?>
+echo Assignments::widget(['accountId' => $user->id]);
 
-<?php $this->endContent() ?>
+
+$this->endContent();

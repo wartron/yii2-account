@@ -18,11 +18,10 @@ use yii\helpers\Html;
  * @var wartron\yii2account\models\Profile 	$profile
  */
 
-?>
+$this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
 
-<?php $this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]) ?>
 
-<?php $form = ActiveForm::begin([
+$form = ActiveForm::begin([
     'layout' => 'horizontal',
     'enableAjaxValidation' => true,
     'enableClientValidation' => false,
@@ -31,22 +30,24 @@ use yii\helpers\Html;
             'wrapper' => 'col-sm-9',
         ],
     ],
-]); ?>
+]);
 
-<?= $form->field($profile, 'name') ?>
-<?= $form->field($profile, 'public_email') ?>
-<?= $form->field($profile, 'website') ?>
-<?= $form->field($profile, 'location') ?>
-<?= $form->field($profile, 'gravatar_email') ?>
-<?= $form->field($profile, 'bio')->textarea() ?>
+echo $form->field($profile, 'name');
+echo $form->field($profile, 'public_email');
+echo $form->field($profile, 'website');
+echo $form->field($profile, 'location');
+echo $form->field($profile, 'gravatar_email');
+echo $form->field($profile, 'bio')->textarea();
 
-
+?>
 <div class="form-group">
     <div class="col-lg-offset-3 col-lg-9">
         <?= Html::submitButton(Yii::t('account', 'Update'), ['class' => 'btn btn-block btn-success']) ?>
     </div>
 </div>
 
-<?php ActiveForm::end(); ?>
+<?php
 
-<?php $this->endContent() ?>
+ActiveForm::end();
+
+$this->endContent();
