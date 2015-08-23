@@ -26,17 +26,18 @@ use wartron\yii2uuid\helpers\Uuid;
 
 $this->title = Yii::t('account', 'Manage accounts');
 $this->params['breadcrumbs'][] = $this->title;
-?>
 
-<?= $this->render('/_alert', [
-    'module' => Yii::$app->getModule('account'),
-]) ?>
+$module = Yii::$app->getModule('account');
 
-<?= $this->render('/admin/_menu') ?>
+echo $this->render('/_alert', [
+    'module' => $module,
+]);
 
-<?php Pjax::begin() ?>
+echo $this->render('/admin/_menu');
 
-<?= GridView::widget([
+Pjax::begin();
+
+echo GridView::widget([
     'dataProvider' 	=> $dataProvider,
     'filterModel'  	=> $searchModel,
     'layout'  		=> "{items}\n{pager}",
@@ -97,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             },
             'format' => 'raw',
-            'visible' => Yii::$app->getModule('account')->enableConfirmation,
+            'visible' => $module->enableConfirmation && $module->can('backend-accounts-confirm'),
         ],
         [
             'header' => Yii::t('account', 'Block status'),
@@ -117,12 +118,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             },
             'format' => 'raw',
+            'visible' => $module->can('backend-accounts-block'),
         ],
         [
             'class' => 'yii\grid\ActionColumn',
-            'template' => '{update} {delete}',
+            'template' => ($module->can('backend-accounts-delete') ? '{update} {delete}' : '{update}'),
         ],
     ],
-]); ?>
+]);
 
-<?php Pjax::end() ?>
+Pjax::end();

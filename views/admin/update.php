@@ -57,7 +57,7 @@ echo $this->render('_menu');
                         [
                             'label'     =>  Yii::t('account', 'Assignments'),
                             'url'       =>  ['/account/admin/assignments', 'id' => Uuid::uuid2str($user->id)],
-                            'visible'   =>  $module->hasRbac(),
+                            'visible'   =>  $module->hasRbac() && $module->can('backend-accounts-rbac'),
                         ],
                         '<hr>',
                         [
