@@ -18,8 +18,15 @@ echo Nav::widget([
     ],
     'items' => [
         [
-            'label'   => Yii::t('account', 'Accounts'),
-            'url'     => ['/account/admin/index'],
+            'label'     => Yii::t('account', 'Accounts'),
+            'url'       => ['/account/admin/index'],
+            'urlActive' => [
+                ['/account/admin/view'],
+                ['/account/admin/update'],
+                ['/account/admin/update-profile'],
+                ['/account/admin/assignments'],
+                ['/account/admin/create'],
+            ]
         ],
         [
             'label'   => Yii::t('account', 'Roles'),
