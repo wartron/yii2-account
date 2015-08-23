@@ -19,7 +19,7 @@ use yii\helpers\Html;
  */
 
 $this->title = Yii::t('account', 'Create a user account');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('account', 'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('account', 'Accounts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $module = Yii::$app->getModule('account');
