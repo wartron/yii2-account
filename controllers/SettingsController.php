@@ -164,15 +164,15 @@ class SettingsController extends Controller
      */
     public function actionDisconnect($id)
     {
-        $account = $this->finder->findAccountNetwork()->byId($id)->one();
+        $accountNetwork = $this->finder->findAccountNetwork()->byId($id)->one();
 
-        if ($account === null) {
+        if ($accountNetwork === null) {
             throw new NotFoundHttpException();
         }
-        if ($account->user_id != Yii::$app->user->id) {
+        if ($accountNetwork->account_id != Yii::$app->user->id) {
             throw new ForbiddenHttpException();
         }
-        $account->delete();
+        $accountNetwork->delete();
 
         return $this->redirect(['networks']);
     }
