@@ -18,10 +18,12 @@ use yii\grid\GridView;
 use yii\widgets\DetailView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\data\ArrayDataProvider;
+
 
 $this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
 
-
+echo "<h4>Account</h4>";
 
 echo DetailView::widget([
     'model'         =>  $user,
@@ -51,6 +53,60 @@ echo DetailView::widget([
         'registration_ip',
     ],
 ]);
+
+echo "<h4>Profile</h4>";
+
+echo DetailView::widget([
+    'model'         =>  $user->profile,
+    'attributes'    =>  [
+        'name',
+        'public_email',
+        'gravatar_email',
+        'location',
+        'website',
+        'bio:ntext',
+    ],
+]);
+
+
+
+$module = Yii::$app->getModule('account');
+if( $module->hasRbac() ) {
+    $authManager = Yii::$app->getAuthManager();
+
+    $roles = $authManager->getRolesByUser($user->id);
+    $rolesDP = new ArrayDataProvider([
+        'allModels' => $roles,
+        'sort' => [
+            'attributes' => ['name', 'description'],
+        ],
+    ]);
+    echo "<h4>Roles</h4>";
+    echo GridView::widget([
+        'dataProvider' => $rolesDP,
+         'columns' => [
+            'name',
+            'description',
+        ]
+    ]);
+
+    $permissions = $authManager->getPermissionsByUser($user->id);
+    $permissionsDP = new ArrayDataProvider([
+        'allModels' => $permissions,
+        'sort' => [
+            'attributes' => ['name', 'description'],
+        ],
+    ]);
+    echo "<h4>Permissions</h4>";
+    echo GridView::widget([
+        'dataProvider' => $permissionsDP,
+         'columns' => [
+            'name',
+            'description',
+        ]
+    ]);
+
+}
 
 
 $this->endContent();
