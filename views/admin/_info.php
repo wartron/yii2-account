@@ -25,7 +25,7 @@ $module = Yii::$app->getModule('account');
 
 
 $this->beginContent('@wartron/yii2account/views/admin/update.php', [
-    'title'     =>  'Profile',
+    'title'     =>  'Information',
     'account'   =>  $account,
 ]);
 

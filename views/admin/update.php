@@ -20,7 +20,7 @@ use wartron\yii2uuid\helpers\Uuid;
  * @var string 	$content
  */
 
-$this->title = Yii::t('account', 'Update account') . " - " . $title;
+$this->title = Yii::t('account', 'Account') . " - " . $title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('account', 'Accounts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $account->username , 'url' => ['/account/admin/info', 'id' => Uuid::uuid2str($account->id)] ];
 $this->params['breadcrumbs'][] = $this->title;
@@ -43,11 +43,11 @@ $items[] = [
     'url'       =>  ['/account/admin/info', 'id' => Uuid::uuid2str($account->id)]
 ];
 $items[] = [
-    'label'     =>  Yii::t('account', 'Account details'),
+    'label'     =>  Yii::t('account', 'Account'),
     'url'       =>  ['/account/admin/update', 'id' => Uuid::uuid2str($account->id)]
 ];
 $items[] = [
-    'label'     =>  Yii::t('account', 'Profile details'),
+    'label'     =>  Yii::t('account', 'Profile'),
     'url'       =>  ['/account/admin/update-profile', 'id' => Uuid::uuid2str($account->id)]
 ];
 
