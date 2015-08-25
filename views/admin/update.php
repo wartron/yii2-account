@@ -62,6 +62,16 @@ echo $this->render('_menu', [
                             'url'       =>  ['/account/admin/assignments', 'id' => Uuid::uuid2str($user->id)],
                             'visible'   =>  $module->hasRbac() && $module->can('backend-accounts-rbac'),
                         ],
+                        [
+                            'label'     =>  Yii::t('account', 'Billing'),
+                            'url'       =>  ['/account/admin/billing', 'id' => Uuid::uuid2str($user->id)],
+                            'visible'   =>  $module->hasBilling() && $module->can('backend-accounts-billing'),
+                        ],
+                        [
+                            'label'     =>  Yii::t('account', 'Invoices'),
+                            'url'       =>  ['/account/admin/billing-invoices', 'id' => Uuid::uuid2str($user->id)],
+                            'visible'   =>  $module->hasBilling() && $module->can('backend-accounts-billing'),
+                        ],
                         '<hr>',
                         [
                             'label'         =>  Yii::t('account', 'Confirm'),
