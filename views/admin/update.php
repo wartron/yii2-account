@@ -68,8 +68,8 @@ echo $this->render('_menu', [
                             'visible'   =>  $module->hasBilling() && $module->can('backend-accounts-billing'),
                         ],
                         [
-                            'label'     =>  Yii::t('account', 'Invoices'),
-                            'url'       =>  ['/account/admin/billing-invoices', 'id' => Uuid::uuid2str($account->id)],
+                            'label'     =>  Yii::t('account', 'Payments'),
+                            'url'       =>  ['/account/admin/billing-payments', 'id' => Uuid::uuid2str($account->id)],
                             'visible'   =>  $module->hasBilling() && $module->can('backend-accounts-billing'),
                         ],
                         '<hr>',

@@ -91,6 +91,9 @@ class AdminController extends Controller
             $actions['billing'] = [
                 'class' =>  'wartron\yii2account\billing\actions\admin\BillingAction',
             ];
+            $actions['billing-payments'] = [
+                'class' =>  'wartron\yii2account\billing\actions\admin\PaymentsAction',
+            ];
         }
 
         return $actions;
