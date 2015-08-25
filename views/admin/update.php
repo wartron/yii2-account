@@ -35,6 +35,101 @@ echo $this->render('_menu', [
     'module' => $module,
 ]);
 
+$items = [];
+
+
+$items[] = [
+    'label'     =>  Yii::t('account', 'Information'),
+    'url'       =>  ['/account/admin/info', 'id' => Uuid::uuid2str($account->id)]
+];
+$items[] = [
+    'label'     =>  Yii::t('account', 'Account details'),
+    'url'       =>  ['/account/admin/update', 'id' => Uuid::uuid2str($account->id)]
+];
+$items[] = [
+    'label'     =>  Yii::t('account', 'Profile details'),
+    'url'       =>  ['/account/admin/update-profile', 'id' => Uuid::uuid2str($account->id)]
+];
+
+if( $module->hasRbac() && $module->can('backend-accounts-rbac') )
+{
+    $items[] = [
+        'label'     =>  Yii::t('account', 'Assignments'),
+        'url'       =>  ['/account/admin/assignments', 'id' => Uuid::uuid2str($account->id)],
+    ];
+}
+
+if( $module->hasBilling() && $module->can('backend-accounts-billing') )
+{
+    $items[] = '<hr>';
+
+    $items[] = [
+        'label'     =>  Yii::t('account', 'Billing'),
+        'url'       =>  ['/account/admin/billing', 'id' => Uuid::uuid2str($account->id)],
+    ];
+    $items[] = [
+        'label'     =>  Yii::t('account', 'Payments'),
+        'url'       =>  ['/account/admin/billing-payments', 'id' => Uuid::uuid2str($account->id)],
+    ];
+}
+
+$items[] = '<hr>';
+
+if( !$account->isConfirmed && $module->can('backend-accounts-confirm') )
+{
+    $items[] = [
+        'label'         =>  Yii::t('account', 'Confirm'),
+        'url'           =>  ['/account/admin/confirm', 'id' => Uuid::uuid2str($account->id)],
+        'linkOptions'   =>  [
+            'class'         =>  'text-success',
+            'data-method'   =>  'post',
+            'data-confirm'  =>  Yii::t('account', 'Are you sure you want to confirm this account?'),
+        ],
+    ];
+}
+
+if( !$account->isBlocked && $module->can('backend-accounts-block') )
+{
+    $items[] = [
+        'label'         =>  Yii::t('account', 'Block'),
+        'url'           =>  ['/account/admin/block', 'id' => Uuid::uuid2str($account->id)],
+        'linkOptions'   =>  [
+            'class'         =>  'text-danger',
+            'data-method'   =>  'post',
+            'data-confirm'  =>  Yii::t('account', 'Are you sure you want to block this account?'),
+        ],
+    ];
+}
+
+if( $account->isBlocked && $module->can('backend-accounts-block') )
+{
+    $items[] = [
+        'label'         =>  Yii::t('account', 'Unblock'),
+        'url'           =>  ['/account/admin/block', 'id' => Uuid::uuid2str($account->id)],
+        'linkOptions'   =>  [
+            'class'         =>  'text-success',
+            'data-method'   =>  'post',
+            'data-confirm'  =>  Yii::t('account', 'Are you sure you want to unblock this account?'),
+        ],
+    ];
+}
+
+if( $module->can('backend-accounts-delete') )
+{
+    $items[] = [
+        'label'         =>  Yii::t('account', 'Delete'),
+        'url'           =>  ['/account/admin/delete', 'id' => Uuid::uuid2str($account->id)],
+        'linkOptions'   =>  [
+            'class'         =>  'text-danger',
+            'data-method'   =>  'post',
+            'data-confirm'  =>  Yii::t('account', 'Are you sure you want to delete this account?'),
+        ],
+    ];
+}
+
+
+
+
 ?>
 <div class="row">
     <div class="col-md-3">
@@ -44,76 +139,7 @@ echo $this->render('_menu', [
                     'options' => [
                         'class' => 'nav-pills nav-stacked',
                     ],
-                    'items' => [
-                        [
-                            'label'     =>  Yii::t('account', 'Information'),
-                            'url'       =>  ['/account/admin/info', 'id' => Uuid::uuid2str($account->id)]
-                        ],
-                        [
-                            'label'     =>  Yii::t('account', 'Account details'),
-                            'url'       =>  ['/account/admin/update', 'id' => Uuid::uuid2str($account->id)]
-                        ],
-                        [
-                            'label'     =>  Yii::t('account', 'Profile details'),
-                            'url'       =>  ['/account/admin/update-profile', 'id' => Uuid::uuid2str($account->id)]
-                        ],
-                        [
-                            'label'     =>  Yii::t('account', 'Assignments'),
-                            'url'       =>  ['/account/admin/assignments', 'id' => Uuid::uuid2str($account->id)],
-                            'visible'   =>  $module->hasRbac() && $module->can('backend-accounts-rbac'),
-                        ],
-                        [
-                            'label'     =>  Yii::t('account', 'Billing'),
-                            'url'       =>  ['/account/admin/billing', 'id' => Uuid::uuid2str($account->id)],
-                            'visible'   =>  $module->hasBilling() && $module->can('backend-accounts-billing'),
-                        ],
-                        [
-                            'label'     =>  Yii::t('account', 'Payments'),
-                            'url'       =>  ['/account/admin/billing-payments', 'id' => Uuid::uuid2str($account->id)],
-                            'visible'   =>  $module->hasBilling() && $module->can('backend-accounts-billing'),
-                        ],
-                        '<hr>',
-                        [
-                            'label'         =>  Yii::t('account', 'Confirm'),
-                            'url'           =>  ['/account/admin/confirm', 'id' => Uuid::uuid2str($account->id)],
-                            'visible'       =>  !$account->isConfirmed && $module->can('backend-accounts-confirm'),
-                            'linkOptions'   =>  [
-                                'class'         =>  'text-success',
-                                'data-method'   =>  'post',
-                                'data-confirm'  =>  Yii::t('account', 'Are you sure you want to confirm this account?'),
-                            ],
-                        ],
-                        [
-                            'label'         =>  Yii::t('account', 'Block'),
-                            'url'           =>  ['/account/admin/block', 'id' => Uuid::uuid2str($account->id)],
-                            'visible'       =>  !$account->isBlocked && $module->can('backend-accounts-block'),
-                            'linkOptions'   =>  [
-                                'class'         =>  'text-danger',
-                                'data-method'   =>  'post',
-                                'data-confirm'  =>  Yii::t('account', 'Are you sure you want to block this account?'),
-                            ],
-                        ],
-                        [
-                            'label'         =>  Yii::t('account', 'Unblock'),
-                            'url'           =>  ['/account/admin/block', 'id' => Uuid::uuid2str($account->id)],
-                            'visible'       =>  $account->isBlocked && $module->can('backend-accounts-block'),
-                            'linkOptions'   =>  [
-                                'class'         =>  'text-success',
-                                'data-method'   =>  'post',
-                                'data-confirm'  =>  Yii::t('account', 'Are you sure you want to unblock this account?'),
-                            ],
-                        ],
-                        [
-                            'label'         =>  Yii::t('account', 'Delete'),
-                            'url'           =>  ['/account/admin/delete', 'id' => Uuid::uuid2str($account->id)],
-                            'visible'       =>  $module->can('backend-accounts-delete'),
-                            'linkOptions'   =>  [
-                                'class'         =>  'text-danger',
-                                'data-method'   =>  'post',
-                                'data-confirm'  =>  Yii::t('account', 'Are you sure you want to delete this account?'),
-                            ],
-                        ],
-                    ],
+                    'items' => $items,
                 ]) ?>
             </div>
         </div>
