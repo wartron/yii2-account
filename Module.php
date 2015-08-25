@@ -111,6 +111,6 @@ class Module extends BaseModule
 
     public function hasBilling()
     {
-        return isset(\Yii::$app->extensions['wartron/yii2-account-billiing']);
+        return isset(\Yii::$app->extensions['wartron/yii2-account-billing']);
     }
 }

@@ -17,7 +17,10 @@ use yii\helpers\Html;
  * @var wartron\yii2account\models\User $user
  */
 
-$this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
+$this->beginContent('@wartron/yii2account/views/admin/update.php', [
+    'title'     =>  'Account',
+    'account'   =>  $account,
+]);
 
 $form = ActiveForm::begin([
     'layout' => 'horizontal',
@@ -30,7 +33,7 @@ $form = ActiveForm::begin([
     ],
 ]);
 
-echo $this->render('_user', ['form' => $form, 'user' => $user]);
+echo $this->render('_user', ['form' => $form, 'account' => $account]);
 
 ?>
 <div class="form-group">

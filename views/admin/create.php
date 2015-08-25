@@ -18,7 +18,7 @@ use yii\helpers\Html;
  * @var wartron\yii2account\models\User 	$user
  */
 
-$this->title = Yii::t('account', 'Create a user account');
+$this->title = Yii::t('account', 'Create a account account');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('account', 'Accounts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -61,7 +61,7 @@ echo $this->render('_menu', [
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="alert alert-info">
-                    <?= Yii::t('account', 'Credentials will be sent to the user by email') ?>.
+                    <?= Yii::t('account', 'Credentials will be sent to the account by email') ?>.
                     <?= Yii::t('account', 'A password will be generated automatically if not provided') ?>.
                 </div>
                 <?php $form = ActiveForm::begin([
@@ -75,7 +75,7 @@ echo $this->render('_menu', [
                     ],
                 ]); ?>
 
-                <?= $this->render('_user', ['form' => $form, 'user' => $user]) ?>
+                <?= $this->render('_user', ['form' => $form, 'account' => $account]) ?>
 
                 <div class="form-group">
                     <div class="col-lg-offset-3 col-lg-9">

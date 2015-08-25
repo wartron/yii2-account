@@ -24,12 +24,15 @@ use yii\data\ArrayDataProvider;
 $module = Yii::$app->getModule('account');
 
 
-$this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
+$this->beginContent('@wartron/yii2account/views/admin/update.php', [
+    'title'     =>  'Profile',
+    'account'   =>  $account,
+]);
 
 echo "<h4>Account</h4>";
 
 echo DetailView::widget([
-    'model'         =>  $user,
+    'model'         =>  $account,
     'attributes'    =>  [
         'id:hex',
         'username',
@@ -37,20 +40,20 @@ echo DetailView::widget([
         [
             'label' =>  Yii::t('account', 'Registration time'),
             'type'  =>  'raw',
-            'value' =>  Yii::t('account', '{0, date, MMMM dd, YYYY HH:mm}', [$user->created_at]),
+            'value' =>  Yii::t('account', '{0, date, MMMM dd, YYYY HH:mm}', [$account->created_at]),
         ],
         [
             'label' =>  Yii::t('account', 'Confirmation status'),
             'type'  =>  'raw',
-            'value' =>  $user->isConfirmed ?
-                Yii::t('account', 'Confirmed at {0, date, MMMM dd, YYYY HH:mm}', [$user->confirmed_at]) :
+            'value' =>  $account->isConfirmed ?
+                Yii::t('account', 'Confirmed at {0, date, MMMM dd, YYYY HH:mm}', [$account->confirmed_at]) :
                 Yii::t('account', 'Unconfirmed'),
         ],
         [
             'label' =>  Yii::t('account', 'Block status'),
             'type'  =>  'raw',
-            'value' =>  $user->isBlocked ?
-                Yii::t('account', 'Blocked at {0, date, MMMM dd, YYYY HH:mm}', [$user->blocked_at]) :
+            'value' =>  $account->isBlocked ?
+                Yii::t('account', 'Blocked at {0, date, MMMM dd, YYYY HH:mm}', [$account->blocked_at]) :
                 Yii::t('account', 'Not blocked'),
         ],
         'registration_ip',
@@ -60,7 +63,7 @@ echo DetailView::widget([
 echo "<h4>Profile</h4>";
 
 echo DetailView::widget([
-    'model'         =>  $user->profile,
+    'model'         =>  $account->profile,
     'attributes'    =>  [
         'name',
         'public_email',
@@ -76,7 +79,7 @@ echo DetailView::widget([
 if( $module->hasRbac() ) {
     $authManager = Yii::$app->getAuthManager();
 
-    $roles = $authManager->getRolesByUser($user->id);
+    $roles = $authManager->getRolesByUser($account->id);
     $rolesDP = new ArrayDataProvider([
         'allModels' => $roles,
         'sort' => [
@@ -93,7 +96,7 @@ if( $module->hasRbac() ) {
         ]
     ]);
 
-    $permissions = $authManager->getPermissionsByUser($user->id);
+    $permissions = $authManager->getPermissionsByUser($account->id);
     $permissionsDP = new ArrayDataProvider([
         'allModels' => $permissions,
         'sort' => [

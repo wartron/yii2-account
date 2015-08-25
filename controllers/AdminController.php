@@ -136,7 +136,7 @@ class AdminController extends Controller
         }
 
         return $this->render('create', [
-            'user' => $account,
+            'account' => $account,
         ]);
     }
 
@@ -162,7 +162,7 @@ class AdminController extends Controller
         }
 
         return $this->render('_account', [
-            'user' => $account,
+            'account' => $account,
         ]);
     }
 
@@ -193,13 +193,13 @@ class AdminController extends Controller
         }
 
         return $this->render('_profile', [
-            'user'    => $account,
+            'account'    => $account,
             'profile' => $profile,
         ]);
     }
 
     /**
-     * Shows information about user.
+     * Shows information about account.
      *
      * @param int $id
      *
@@ -211,13 +211,13 @@ class AdminController extends Controller
         $account = $this->findModel($id);
 
         return $this->render('_info', [
-            'user' => $account,
+            'account' => $account,
         ]);
     }
 
     /**
      * If "wartron/yii2-account-rbac-uuid" extension is installed, this page displays form
-     * where user can assign multiple auth items to user.
+     * where account can assign multiple auth items to account.
      *
      * @param int $id
      *
@@ -233,12 +233,12 @@ class AdminController extends Controller
         $account = $this->findModel($id);
 
         return $this->render('_assignments', [
-            'user' => $account,
+            'account' => $account,
         ]);
     }
 
     /**
-     * Confirms the User.
+     * Confirms the Account.
      *
      * @param int $id
      *
@@ -247,13 +247,13 @@ class AdminController extends Controller
     public function actionConfirm($id)
     {
         $this->findModel($id)->confirm();
-        Yii::$app->getSession()->setFlash('success', Yii::t('account', 'User has been confirmed'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('account', 'Account has been confirmed'));
 
         return $this->redirect(Url::previous('actions-redirect'));
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Account model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
      * @param int $id
@@ -266,14 +266,14 @@ class AdminController extends Controller
             Yii::$app->getSession()->setFlash('danger', Yii::t('account', 'You can not remove your own account'));
         } else {
             $this->findModel($id)->delete();
-            Yii::$app->getSession()->setFlash('success', Yii::t('account', 'User has been deleted'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('account', 'Account has been deleted'));
         }
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Blocks the user.
+     * Blocks the Account.
      *
      * @param int $id
      *
@@ -287,10 +287,10 @@ class AdminController extends Controller
             $account = $this->findModel($id);
             if ($account->getIsBlocked()) {
                 $account->unblock();
-                Yii::$app->getSession()->setFlash('success', Yii::t('account', 'User has been unblocked'));
+                Yii::$app->getSession()->setFlash('success', Yii::t('account', 'Account has been unblocked'));
             } else {
                 $account->block();
-                Yii::$app->getSession()->setFlash('success', Yii::t('account', 'User has been blocked'));
+                Yii::$app->getSession()->setFlash('success', Yii::t('account', 'Account has been blocked'));
             }
         }
 
@@ -298,12 +298,12 @@ class AdminController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Account model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
      * @param int $id
      *
-     * @return User the loaded model
+     * @return Account the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

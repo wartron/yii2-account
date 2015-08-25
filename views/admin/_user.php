@@ -17,6 +17,6 @@
 
 
 
-echo $form->field($user, 'email')->textInput(['maxlength' => 255]);
-echo $form->field($user, 'username')->textInput(['maxlength' => 255]);
-echo $form->field($user, 'password')->passwordInput();
+echo $form->field($account, 'email')->textInput(['maxlength' => 255]);
+echo $form->field($account, 'username')->textInput(['maxlength' => 255]);
+echo $form->field($account, 'password')->passwordInput();

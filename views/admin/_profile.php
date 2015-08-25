@@ -18,8 +18,10 @@ use yii\helpers\Html;
  * @var wartron\yii2account\models\Profile 	$profile
  */
 
-$this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
-
+$this->beginContent('@wartron/yii2account/views/admin/update.php', [
+    'title'     =>  'Profile',
+    'account'   =>  $account,
+]);
 
 $form = ActiveForm::begin([
     'layout' => 'horizontal',

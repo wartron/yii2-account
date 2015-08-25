@@ -95,7 +95,7 @@ echo GridView::widget([
                     return Html::a(Yii::t('account', 'Confirm'), ['confirm', 'id' => Uuid::uuid2str($model->id) ], [
                         'class' => 'btn btn-xs btn-success btn-block',
                         'data-method' => 'post',
-                        'data-confirm' => Yii::t('account', 'Are you sure you want to confirm this user?'),
+                        'data-confirm' => Yii::t('account', 'Are you sure you want to confirm this account?'),
                     ]);
                 }
             },
@@ -109,13 +109,13 @@ echo GridView::widget([
                     return Html::a(Yii::t('account', 'Unblock'), ['block', 'id' => Uuid::uuid2str($model->id) ], [
                         'class' => 'btn btn-xs btn-success btn-block',
                         'data-method' => 'post',
-                        'data-confirm' => Yii::t('account', 'Are you sure you want to unblock this user?'),
+                        'data-confirm' => Yii::t('account', 'Are you sure you want to unblock this account?'),
                     ]);
                 } else {
                     return Html::a(Yii::t('account', 'Block'), ['block', 'id' => Uuid::uuid2str($model->id) ], [
                         'class' => 'btn btn-xs btn-danger btn-block',
                         'data-method' => 'post',
-                        'data-confirm' => Yii::t('account', 'Are you sure you want to block this user?'),
+                        'data-confirm' => Yii::t('account', 'Are you sure you want to block this account?'),
                     ]);
                 }
             },
