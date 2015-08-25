@@ -43,7 +43,7 @@ $items[] = [
     'url'       =>  ['/account/admin/info', 'id' => Uuid::uuid2str($account->id)]
 ];
 $items[] = [
-    'label'     =>  Yii::t('account', 'Account'),
+    'label'     =>  Yii::t('account', 'Details'),
     'url'       =>  ['/account/admin/update', 'id' => Uuid::uuid2str($account->id)]
 ];
 $items[] = [

@@ -18,7 +18,7 @@ use yii\helpers\Html;
  */
 
 $this->beginContent('@wartron/yii2account/views/admin/update.php', [
-    'title'     =>  'Account',
+    'title'     =>  'Details',
     'account'   =>  $account,
 ]);
 
