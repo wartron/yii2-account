@@ -78,7 +78,8 @@ if( $module->hasRbac() ) {
     $rolesDP = new ArrayDataProvider([
         'allModels' => $roles,
         'sort' => [
-            'attributes' => ['name', 'description'],
+            'sortParam'     =>  'sortPermission',
+            'attributes'    =>  ['name', 'description'],
         ],
     ]);
     echo "<h4>Roles</h4>";
@@ -94,7 +95,8 @@ if( $module->hasRbac() ) {
     $permissionsDP = new ArrayDataProvider([
         'allModels' => $permissions,
         'sort' => [
-            'attributes' => ['name', 'description'],
+            'sortParam'     =>  'sortPermission',
+            'attributes'    =>  ['name', 'description'],
         ],
     ]);
     echo "<h4>Permissions</h4>";
