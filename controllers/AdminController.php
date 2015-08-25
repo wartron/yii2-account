@@ -89,10 +89,10 @@ class AdminController extends Controller
 
         if ( $this->module->hasBilling() ) {
             $actions['billing'] = [
-                'class' =>  'wartron\yii2account\billing\actions\admin\BillingAction',
+                'class' =>  'wartron\yii2account\billing\backend\actions\BillingAction',
             ];
             $actions['billing-payments'] = [
-                'class' =>  'wartron\yii2account\billing\actions\admin\PaymentsAction',
+                'class' =>  'wartron\yii2account\billing\backend\actions\PaymentsAction',
             ];
         }
 

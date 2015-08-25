@@ -26,6 +26,9 @@ echo Nav::widget([
                 ['/account/admin/update-profile'],
                 ['/account/admin/assignments'],
                 ['/account/admin/create'],
+                // from wartron/yii2-account-billing
+                ['/account/admin/billing'],
+                ['/account/admin/billing-payments'],
             ]
         ],
         [

@@ -74,6 +74,24 @@ class SettingsController extends Controller
         ];
     }
 
+
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        $actions = parent::actions();
+
+        if ( $this->module->hasBilling() ) {
+            $actions['billing'] = [
+                'class' =>  'wartron\yii2account\billing\frontend\actions\BillingAction',
+            ];
+        }
+
+        return $actions;
+    }
+
     /**
      * Shows profile settings form.
      *
