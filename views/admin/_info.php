@@ -21,6 +21,9 @@ use yii\helpers\Url;
 use yii\data\ArrayDataProvider;
 
 
+$module = Yii::$app->getModule('account');
+
+
 $this->beginContent('@wartron/yii2account/views/admin/update.php', ['user' => $user]);
 
 echo "<h4>Account</h4>";
@@ -70,7 +73,6 @@ echo DetailView::widget([
 
 
 
-$module = Yii::$app->getModule('account');
 if( $module->hasRbac() ) {
     $authManager = Yii::$app->getAuthManager();
 
@@ -78,7 +80,7 @@ if( $module->hasRbac() ) {
     $rolesDP = new ArrayDataProvider([
         'allModels' => $roles,
         'sort' => [
-            'sortParam'     =>  'sortPermission',
+            'sortParam'     =>  'sortRole',
             'attributes'    =>  ['name', 'description'],
         ],
     ]);

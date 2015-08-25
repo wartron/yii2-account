@@ -79,6 +79,23 @@ class AdminController extends Controller
         ];
     }
 
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        $actions = parent::actions();
+
+        if ( $this->module->hasBilling() ) {
+            $actions['billing'] = [
+                'class' =>  'wartron\yii2account\billing\actions\admin\BillingAction',
+            ];
+        }
+
+        return $actions;
+    }
+
     /**
      * Lists all Account models.
      *
