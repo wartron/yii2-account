@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use yii\widgets\Menu;
+use wartron\yii2widgets\urlactive\Menu;
 
 /** @var wartron\yii2account\models\User $user */
 $user = Yii::$app->user->identity;
@@ -38,7 +38,11 @@ $navItems = [
     [
         'label' => Yii::t('account', 'Billing'),
         'url' => ['/account/settings/billing'],
-        'visible' => $billingVisible
+        'visible' => $billingVisible,
+        'urlActive' =>  [
+            ['/billing/payment/index'],
+            ['/billing/payment/view'],
+        ]
     ],
     [
         'label' => Yii::t('account', 'Organizations'),
