@@ -27,14 +27,15 @@ class m140209_132017_init extends Migration
             'password_hash'         =>  Schema::TYPE_STRING . '(60) NOT NULL',
             'auth_key'              =>  Schema::TYPE_STRING . '(32) NOT NULL',
 
-            'confirmed_at'          =>  Schema::TYPE_INTEGER,
             'unconfirmed_email'     =>  Schema::TYPE_STRING . '(255)',
 
-            'blocked_at'            =>  Schema::TYPE_INTEGER,
             'registration_ip'       =>  Schema::TYPE_STRING . '(45)',
             'flags'                 =>  Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
-            'created_at'            =>  Schema::TYPE_INTEGER . ' NOT NULL',
-            'updated_at'            =>  Schema::TYPE_INTEGER . ' NOT NULL',
+
+            'created_at'            =>  Schema::TYPE_INTEGER,
+            'updated_at'            =>  Schema::TYPE_INTEGER,
+            'confirmed_at'          =>  Schema::TYPE_INTEGER,
+            'blocked_at'            =>  Schema::TYPE_INTEGER,
         ], $this->tableOptions);
 
         $this->createIndex('account_unique_username', '{{%account}}', 'username', true);
@@ -52,6 +53,25 @@ class m140209_132017_init extends Migration
         ], $this->tableOptions);
 
         $this->addForeignKey('fk_account_profile', '{{%profile}}', 'account_id', '{{%account}}', 'id', 'CASCADE', 'RESTRICT');
+
+        $columns = ['id', 'type', 'username', 'email', 'password_hash','auth_key','created_at','confirmed_at'];
+        $this->batchInsert('{{%account}}', $columns, [
+            [
+                hex2bin('6043BACF4CF411E590E90242AC110002'),
+                1,
+                'admin',
+                'admin@example.com',
+                '$2y$10$BBreK0H/3a2w0o/WkzALgeGpk/m5o5hEw9zUr8eaxA55e.GJCtI62',
+                'PZMozdueBO9Y_F-pv3PwjJKMcLPXW5yJ',
+                time(),
+                time(),
+            ],
+        ]);
+
+
+
+
+
     }
 
     public function down()
