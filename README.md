@@ -1,6 +1,6 @@
 # Yii2-Account
 
-This is a hard fork of [dektrium/yii2-user](https://github.com/dektrium/yii2-user). Most noteable changes are the module, models, and tables now referrer to Account instead of User. And all primary keys are binary(16) uuids.
+This is a hard fork of [dektrium/yii2-user](https://github.com/dektrium/yii2-user). Most notable changes are the module, models, and tables now referrer to Account instead of User. And all primary keys are binary(16) uuids.
 
 ## From yii2-user
 
