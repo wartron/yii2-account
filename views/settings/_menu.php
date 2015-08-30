@@ -37,7 +37,7 @@ $navItems = [
     ],
     [
         'label' => Yii::t('account', 'Billing'),
-        'url' => ['/billing/settings'],
+        'url' => ['/billing/settings/index'],
         'visible' => $billingVisible,
         'urlActive' =>  [
             ['/billing/settings/new-card'],
