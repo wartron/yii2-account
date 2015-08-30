@@ -1,5 +1,9 @@
 # Yii2-Account
 
+This is a hard fork of [dektrium/yii2-user](https://github.com/dektrium/yii2-user). Most noteable changes are the module, models, and tables now referrer to Account instead of User. And all primary keys are binary(16) uuids.
+
+## From yii2-user
+
 Most of web applications provide a way for users to register, log in or reset
 their forgotten passwords. Rather than re-implementing this on each application,
 you can use Yii2-user which is a flexible user management module for Yii2 that
@@ -17,12 +21,7 @@ The latest version includes following features:
 
 ## Documentation
 
-[Installation instructions](docs/getting-started.md) | [Definitive guide to Yii2-user](docs/README.md)
-
-## Contributing to this project
-
-Anyone and everyone is welcome to contribute. Please take a moment to
-review the [guidelines for contributing](CONTRIBUTING.md).
+[Installation instructions](docs/getting-started.md)
 
 ## License
 
