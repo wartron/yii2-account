@@ -68,6 +68,16 @@ class m140209_132017_init extends Migration
             ],
         ]);
 
+        $columns = ['account_id', 'name', 'public_email', 'gravatar_email'];
+        $this->batchInsert('{{%profile}}', $columns, [
+            [
+                hex2bin('6043BACF4CF411E590E90242AC110002'),
+                'admin',
+                'admin@example.com',
+                'admin@example.com',
+            ],
+        ]);
+
 
 
 
