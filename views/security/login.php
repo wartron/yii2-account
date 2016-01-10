@@ -1,13 +1,6 @@
 <?php
 
-/*
- * This file is part of the Dektrium project.
- *
- * (c) Dektrium project <http://github.com/dektrium>
- *
- * For the full copyright and license information, please view the LICENSE.md
- * file that was distributed with this source code.
- */
+
 
 use wartron\yii2account\widgets\Connect;
 use yii\helpers\Html;
@@ -32,24 +25,45 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
             </div>
             <div class="panel-body">
-                <?php $form = ActiveForm::begin([
-                    'id'                     => 'login-form',
-                    'enableAjaxValidation'   => true,
-                    'enableClientValidation' => false,
-                    'validateOnBlur'         => false,
-                    'validateOnType'         => false,
-                    'validateOnChange'       => false,
-                ]) ?>
+                <?php
 
-                <?= $form->field($model, 'login', ['inputOptions' => ['autofocus' => 'autofocus', 'class' => 'form-control', 'tabindex' => '1']]) ?>
+                    $form = ActiveForm::begin([
+                        'id'                     => 'login-form',
+                        'enableAjaxValidation'   => true,
+                        'enableClientValidation' => false,
+                        'validateOnBlur'         => false,
+                        'validateOnType'         => false,
+                        'validateOnChange'       => false,
+                    ]);
 
-                <?= $form->field($model, 'password', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])->passwordInput()->label(Yii::t('account', 'Password') . ($module->enablePasswordRecovery ? ' (' . Html::a(Yii::t('account', 'Forgot password?'), ['/account/recovery/request'], ['tabindex' => '5']) . ')' : '')) ?>
+                    echo $form->field($model, 'login', [
+                        'inputOptions' => [
+                            'autofocus' => 'autofocus',
+                            'class' => 'form-control',
+                            'tabindex' => '1'
+                        ]
+                    ]);
 
-                <?= $form->field($model, 'rememberMe')->checkbox(['tabindex' => '4']) ?>
+                    echo $form->field($model, 'password', [
+                        'inputOptions' => [
+                            'class' => 'form-control',
+                            'tabindex' => '2'
+                        ]
+                    ])->passwordInput()
+                    ->label(Yii::t('account', 'Password') .
+                        ($module->enablePasswordRecovery ?
+                            ' (' . Html::a(Yii::t('account', 'Forgot password?'), ['/account/recovery/request'], ['tabindex' => '5']) . ')' :
+                            ''
+                        )
+                    );
 
-                <?= Html::submitButton(Yii::t('account', 'Sign in'), ['class' => 'btn btn-primary btn-block', 'tabindex' => '3']) ?>
+                    echo $form->field($model, 'rememberMe')->checkbox(['tabindex' => '3']);
 
-                <?php ActiveForm::end(); ?>
+                    echo Html::submitButton(Yii::t('account', 'Sign in'), ['class' => 'btn btn-primary btn-block', 'tabindex' => '4']);
+
+                    ActiveForm::end();
+
+                ?>
             </div>
         </div>
         <?php if ($module->enableConfirmation): ?>

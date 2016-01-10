@@ -39,6 +39,8 @@ echo $this->render('_menu', [
 
 Pjax::begin();
 
+
+echo "<div class='table-responsive'>";
 echo GridView::widget([
     'dataProvider' 	=> $dataProvider,
     'filterModel'  	=> $searchModel,
@@ -128,5 +130,6 @@ echo GridView::widget([
         ],
     ],
 ]);
+echo "</div>";
 
 Pjax::end();
